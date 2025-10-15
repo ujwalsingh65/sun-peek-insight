@@ -14,13 +14,13 @@ export const WeatherWidget = () => {
           <div className="flex items-center gap-3">
             <Sun className="h-10 w-10 text-secondary" />
             <div>
-              <p className="text-3xl font-bold">24°C</p>
-              <p className="text-sm text-muted-foreground">Sunny</p>
+              <p className="text-3xl font-bold">32°C</p>
+              <p className="text-sm text-muted-foreground">Partly Cloudy</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm font-medium">Peak Hours</p>
-            <p className="text-lg font-bold text-secondary">10AM - 3PM</p>
+            <p className="text-sm font-medium">Mumbai</p>
+            <p className="text-lg font-bold text-secondary">10AM - 4PM</p>
           </div>
         </div>
 
@@ -29,14 +29,14 @@ export const WeatherWidget = () => {
             <Cloud className="h-6 w-6 text-accent" />
             <div>
               <p className="text-xs text-muted-foreground">Cloud Cover</p>
-              <p className="text-lg font-semibold">15%</p>
+              <p className="text-lg font-semibold">35%</p>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
             <Wind className="h-6 w-6 text-accent" />
             <div>
               <p className="text-xs text-muted-foreground">Wind Speed</p>
-              <p className="text-lg font-semibold">12 km/h</p>
+              <p className="text-lg font-semibold">18 km/h</p>
             </div>
           </div>
         </div>
@@ -45,9 +45,9 @@ export const WeatherWidget = () => {
           <p className="text-sm font-medium mb-1">Solar Efficiency</p>
           <div className="flex items-center gap-2">
             <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-              <div className="h-full w-[92%] bg-gradient-to-r from-secondary to-accent rounded-full" />
+              <div className="h-full w-[85%] bg-gradient-to-r from-secondary to-accent rounded-full" />
             </div>
-            <span className="text-sm font-bold text-secondary">92%</span>
+            <span className="text-sm font-bold text-secondary">85%</span>
           </div>
         </div>
       </CardContent>
