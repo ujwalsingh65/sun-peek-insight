@@ -14,13 +14,67 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      electricity_rates: {
+        Row: {
+          currency: string
+          id: string
+          location: string
+          rate_per_kwh: number
+          updated_at: string
+        }
+        Insert: {
+          currency?: string
+          id?: string
+          location?: string
+          rate_per_kwh?: number
+          updated_at?: string
+        }
+        Update: {
+          currency?: string
+          id?: string
+          location?: string
+          rate_per_kwh?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      energy_production: {
+        Row: {
+          created_at: string
+          energy_produced: number
+          id: string
+          power_output: number
+          timestamp: string
+        }
+        Insert: {
+          created_at?: string
+          energy_produced: number
+          id?: string
+          power_output: number
+          timestamp?: string
+        }
+        Update: {
+          created_at?: string
+          energy_produced?: number
+          id?: string
+          power_output?: number
+          timestamp?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      calculate_monthly_savings: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          avg_rate: number
+          total_energy_kwh: number
+          total_savings_inr: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
