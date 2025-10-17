@@ -2,6 +2,7 @@ import { EnergyStats } from "@/components/EnergyStats";
 import { PerformanceChart } from "@/components/PerformanceChart";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
+import { AlertsWidget } from "@/components/AlertsWidget";
 import { Sun } from "lucide-react";
 import solarHero from "@/assets/solar-panels-hero.jpg";
 
@@ -54,6 +55,9 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <CostSavingsCalculator />
+          </div>
+          <div>
+            <AlertsWidget />
           </div>
         </div>
       </main>

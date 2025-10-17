@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      alerts: {
+        Row: {
+          alert_type: string
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          severity: string
+          title: string
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          severity: string
+          title: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          severity?: string
+          title?: string
+        }
+        Relationships: []
+      }
       electricity_rates: {
         Row: {
           currency: string
