@@ -12,6 +12,8 @@ interface SolarProduction {
   monthlyTotal: number;
   efficiency: number;
   hourlyData: { time: string; energy: number }[];
+  weeklyData: { day: string; energy: number }[];
+  monthlyWeekData: { week: string; energy: number }[];
 }
 
 export const useSolarProduction = () => {
@@ -21,6 +23,8 @@ export const useSolarProduction = () => {
     monthlyTotal: 0,
     efficiency: 0,
     hourlyData: [],
+    weeklyData: [],
+    monthlyWeekData: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -82,8 +86,13 @@ export const useSolarProduction = () => {
       const startDate = firstDayOfMonth.toISOString().split('T')[0];
       const endDate = now.toISOString().split('T')[0];
 
+      // Also get last 30 days for better weekly data
+      const thirtyDaysAgo = new Date(now);
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const thirtyDaysStart = thirtyDaysAgo.toISOString().split('T')[0];
+
       const historicalResponse = await fetch(
-        `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${startDate}&end_date=${endDate}&hourly=temperature_2m,cloud_cover&timezone=auto`
+        `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${thirtyDaysStart}&end_date=${endDate}&hourly=temperature_2m,cloud_cover&timezone=auto`
       );
       const historicalData = await historicalResponse.json();
 
@@ -118,8 +127,10 @@ export const useSolarProduction = () => {
         });
       }
 
-      // Calculate monthly total from historical data
+      // Calculate daily, weekly, and monthly totals from historical data
       let monthlyTotal = 0;
+      const dailyTotals: { [key: string]: number } = {};
+      
       if (historicalData.hourly) {
         const temps = historicalData.hourly.temperature_2m;
         const clouds = historicalData.hourly.cloud_cover;
@@ -128,16 +139,61 @@ export const useSolarProduction = () => {
         for (let i = 0; i < times.length; i++) {
           const dateTime = new Date(times[i]);
           const hour = dateTime.getHours();
+          const dateKey = dateTime.toISOString().split('T')[0];
           
           const historicalWeather: WeatherData = {
             temperature: temps[i] || 25,
             cloudCover: clouds[i] || 30,
-            windSpeed: weather.windSpeed, // Use current wind as proxy
+            windSpeed: weather.windSpeed,
           };
 
           const output = calculateSolarOutput(historicalWeather, hour);
-          monthlyTotal += output;
+          
+          // Add to daily totals
+          if (!dailyTotals[dateKey]) {
+            dailyTotals[dateKey] = 0;
+          }
+          dailyTotals[dateKey] += output;
+
+          // Add to monthly total only if in current month
+          if (dateTime >= firstDayOfMonth) {
+            monthlyTotal += output;
+          }
         }
+      }
+
+      // Generate weekly data (last 7 days)
+      const weeklyData: { day: string; energy: number }[] = [];
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date(now);
+        date.setDate(date.getDate() - i);
+        const dateKey = date.toISOString().split('T')[0];
+        const dayName = dayNames[date.getDay()];
+        
+        weeklyData.push({
+          day: dayName,
+          energy: parseFloat((dailyTotals[dateKey] || 0).toFixed(1)),
+        });
+      }
+
+      // Generate monthly week data (last 4 weeks)
+      const monthlyWeekData: { week: string; energy: number }[] = [];
+      
+      for (let weekNum = 4; weekNum >= 1; weekNum--) {
+        let weekTotal = 0;
+        for (let day = 0; day < 7; day++) {
+          const date = new Date(now);
+          date.setDate(date.getDate() - ((weekNum - 1) * 7 + day));
+          const dateKey = date.toISOString().split('T')[0];
+          weekTotal += dailyTotals[dateKey] || 0;
+        }
+        
+        monthlyWeekData.unshift({
+          week: `Week ${5 - weekNum}`,
+          energy: parseFloat(weekTotal.toFixed(1)),
+        });
       }
 
       const efficiency = Math.round((100 - weather.cloudCover) * 0.85);
@@ -148,6 +204,8 @@ export const useSolarProduction = () => {
         monthlyTotal: parseFloat(monthlyTotal.toFixed(1)),
         efficiency,
         hourlyData,
+        weeklyData,
+        monthlyWeekData,
       });
     } catch (error) {
       console.error("Error calculating solar production:", error);
@@ -158,6 +216,21 @@ export const useSolarProduction = () => {
         monthlyTotal: 742,
         efficiency: 75,
         hourlyData: [],
+        weeklyData: [
+          { day: "Mon", energy: 28 },
+          { day: "Tue", energy: 32 },
+          { day: "Wed", energy: 26 },
+          { day: "Thu", energy: 35 },
+          { day: "Fri", energy: 30 },
+          { day: "Sat", energy: 33 },
+          { day: "Sun", energy: 29 },
+        ],
+        monthlyWeekData: [
+          { week: "Week 1", energy: 185 },
+          { week: "Week 2", energy: 210 },
+          { week: "Week 3", energy: 195 },
+          { week: "Week 4", energy: 220 },
+        ],
       });
     } finally {
       setLoading(false);
