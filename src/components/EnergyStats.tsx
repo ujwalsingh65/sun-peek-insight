@@ -1,38 +1,42 @@
 import { Battery, Zap, TrendingUp, Sun } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
-const stats = [
-  {
-    title: "Current Output",
-    value: "4.2 kW",
-    icon: Zap,
-    trend: "+12%",
-    color: "text-secondary",
-  },
-  {
-    title: "Today's Production",
-    value: "28.5 kWh",
-    icon: Sun,
-    trend: "+8%",
-    color: "text-accent",
-  },
-  {
-    title: "Battery Storage",
-    value: "85%",
-    icon: Battery,
-    trend: "+5%",
-    color: "text-primary",
-  },
-  {
-    title: "Monthly Total",
-    value: "742 kWh",
-    icon: TrendingUp,
-    trend: "+15%",
-    color: "text-secondary",
-  },
-];
+import { useSolarProduction } from "@/hooks/useSolarProduction";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const EnergyStats = () => {
+  const { production, loading } = useSolarProduction();
+
+  const stats = [
+    {
+      title: "Current Output",
+      value: loading ? "..." : `${production.currentOutput} kW`,
+      icon: Zap,
+      trend: "+12%",
+      color: "text-secondary",
+    },
+    {
+      title: "Today's Production",
+      value: loading ? "..." : `${production.todayTotal} kWh`,
+      icon: Sun,
+      trend: "+8%",
+      color: "text-accent",
+    },
+    {
+      title: "System Efficiency",
+      value: loading ? "..." : `${production.efficiency}%`,
+      icon: Battery,
+      trend: "+5%",
+      color: "text-primary",
+    },
+    {
+      title: "Monthly Total",
+      value: "742 kWh",
+      icon: TrendingUp,
+      trend: "+15%",
+      color: "text-secondary",
+    },
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       {stats.map((stat, index) => (
@@ -52,7 +56,11 @@ export const EnergyStats = () => {
             <h3 className="text-sm font-medium text-muted-foreground mb-1">
               {stat.title}
             </h3>
-            <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+            {loading ? (
+              <Skeleton className="h-8 w-24" />
+            ) : (
+              <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+            )}
           </CardContent>
         </Card>
       ))}

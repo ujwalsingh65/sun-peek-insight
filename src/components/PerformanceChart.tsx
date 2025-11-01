@@ -12,41 +12,33 @@ import {
   Area,
   AreaChart,
 } from "recharts";
-
-const dailyData = [
-  { time: "6AM", energy: 0.5 },
-  { time: "8AM", energy: 2.1 },
-  { time: "10AM", energy: 3.8 },
-  { time: "12PM", energy: 5.2 },
-  { time: "2PM", energy: 4.9 },
-  { time: "4PM", energy: 3.5 },
-  { time: "6PM", energy: 1.2 },
-  { time: "8PM", energy: 0.3 },
-];
-
-const weeklyData = [
-  { day: "Mon", energy: 28 },
-  { day: "Tue", energy: 32 },
-  { day: "Wed", energy: 26 },
-  { day: "Thu", energy: 35 },
-  { day: "Fri", energy: 30 },
-  { day: "Sat", energy: 33 },
-  { day: "Sun", energy: 29 },
-];
-
-const monthlyData = [
-  { week: "Week 1", energy: 185 },
-  { week: "Week 2", energy: 210 },
-  { week: "Week 3", energy: 195 },
-  { week: "Week 4", energy: 220 },
-];
+import { useSolarProduction } from "@/hooks/useSolarProduction";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const PerformanceChart = () => {
   const [timeRange, setTimeRange] = useState<"day" | "week" | "month">("day");
+  const { production, loading } = useSolarProduction();
+
+  const weeklyData = [
+    { day: "Mon", energy: 28 },
+    { day: "Tue", energy: 32 },
+    { day: "Wed", energy: 26 },
+    { day: "Thu", energy: 35 },
+    { day: "Fri", energy: 30 },
+    { day: "Sat", energy: 33 },
+    { day: "Sun", energy: 29 },
+  ];
+
+  const monthlyData = [
+    { week: "Week 1", energy: 185 },
+    { week: "Week 2", energy: 210 },
+    { week: "Week 3", energy: 195 },
+    { week: "Week 4", energy: 220 },
+  ];
 
   const data =
     timeRange === "day"
-      ? dailyData
+      ? production.hourlyData
       : timeRange === "week"
       ? weeklyData
       : monthlyData;
@@ -59,7 +51,7 @@ export const PerformanceChart = () => {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl font-semibold">
-            Energy Production
+            Energy Production {timeRange === "day" && "(Weather-Based)"}
           </CardTitle>
           <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
             <TabsList>
@@ -71,7 +63,10 @@ export const PerformanceChart = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        {loading && timeRange === "day" ? (
+          <Skeleton className="w-full h-[300px]" />
+        ) : (
+          <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={data}>
             <defs>
               <linearGradient id="energyGradient" x1="0" y1="0" x2="0" y2="1">
@@ -107,6 +102,7 @@ export const PerformanceChart = () => {
             />
           </AreaChart>
         </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   );
