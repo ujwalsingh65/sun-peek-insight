@@ -9,6 +9,7 @@ interface WeatherData {
 interface SolarProduction {
   currentOutput: number;
   todayTotal: number;
+  monthlyTotal: number;
   efficiency: number;
   hourlyData: { time: string; energy: number }[];
 }
@@ -17,6 +18,7 @@ export const useSolarProduction = () => {
   const [production, setProduction] = useState<SolarProduction>({
     currentOutput: 0,
     todayTotal: 0,
+    monthlyTotal: 0,
     efficiency: 0,
     hourlyData: [],
   });
@@ -68,10 +70,22 @@ export const useSolarProduction = () => {
 
       const { latitude, longitude } = position.coords;
 
-      const response = await fetch(
+      // Get current weather
+      const currentResponse = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,cloud_cover,wind_speed_10m&timezone=auto`
       );
-      const data = await response.json();
+      const data = await currentResponse.json();
+
+      // Get historical weather for the month
+      const now = new Date();
+      const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      const startDate = firstDayOfMonth.toISOString().split('T')[0];
+      const endDate = now.toISOString().split('T')[0];
+
+      const historicalResponse = await fetch(
+        `https://archive-api.open-meteo.com/v1/archive?latitude=${latitude}&longitude=${longitude}&start_date=${startDate}&end_date=${endDate}&hourly=temperature_2m,cloud_cover&timezone=auto`
+      );
+      const historicalData = await historicalResponse.json();
 
       const weather: WeatherData = {
         temperature: data.current.temperature_2m,
@@ -104,11 +118,34 @@ export const useSolarProduction = () => {
         });
       }
 
+      // Calculate monthly total from historical data
+      let monthlyTotal = 0;
+      if (historicalData.hourly) {
+        const temps = historicalData.hourly.temperature_2m;
+        const clouds = historicalData.hourly.cloud_cover;
+        const times = historicalData.hourly.time;
+
+        for (let i = 0; i < times.length; i++) {
+          const dateTime = new Date(times[i]);
+          const hour = dateTime.getHours();
+          
+          const historicalWeather: WeatherData = {
+            temperature: temps[i] || 25,
+            cloudCover: clouds[i] || 30,
+            windSpeed: weather.windSpeed, // Use current wind as proxy
+          };
+
+          const output = calculateSolarOutput(historicalWeather, hour);
+          monthlyTotal += output;
+        }
+      }
+
       const efficiency = Math.round((100 - weather.cloudCover) * 0.85);
 
       setProduction({
         currentOutput: parseFloat(currentOutput.toFixed(2)),
         todayTotal: parseFloat(todayTotal.toFixed(1)),
+        monthlyTotal: parseFloat(monthlyTotal.toFixed(1)),
         efficiency,
         hourlyData,
       });
@@ -118,6 +155,7 @@ export const useSolarProduction = () => {
       setProduction({
         currentOutput: 3.2,
         todayTotal: 24.5,
+        monthlyTotal: 742,
         efficiency: 75,
         hourlyData: [],
       });

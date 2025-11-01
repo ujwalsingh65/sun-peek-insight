@@ -30,7 +30,7 @@ export const EnergyStats = () => {
     },
     {
       title: "Monthly Total",
-      value: "742 kWh",
+      value: loading ? "..." : `${production.monthlyTotal} kWh`,
       icon: TrendingUp,
       trend: "+15%",
       color: "text-secondary",
