@@ -28,9 +28,6 @@ export const AlertsWidget = () => {
       if (error) throw error;
       return data as Alert[];
     },
-    staleTime: 0,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
   });
 
   const getSeverityIcon = (severity: string) => {
