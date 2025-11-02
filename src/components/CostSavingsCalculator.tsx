@@ -1,61 +1,17 @@
-import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { IndianRupee, TrendingUp, Zap, Calendar } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-
-interface SavingsData {
-  total_energy_kwh: number;
-  total_savings_inr: number;
-  avg_rate: number;
-}
+import { useSolarProduction } from "@/hooks/useSolarProduction";
 
 export const CostSavingsCalculator = () => {
-  const [savingsData, setSavingsData] = useState<SavingsData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    fetchSavings();
-  }, []);
-
-  const fetchSavings = async () => {
-    try {
-      const { data, error } = await supabase.rpc('calculate_monthly_savings');
-      
-      if (error) throw error;
-      
-      if (data && data.length > 0) {
-        setSavingsData({
-          total_energy_kwh: parseFloat(String(data[0].total_energy_kwh || 0)),
-          total_savings_inr: parseFloat(String(data[0].total_savings_inr || 0)),
-          avg_rate: parseFloat(String(data[0].avg_rate || 8.50)),
-        });
-      } else {
-        // Use mock data for demonstration
-        setSavingsData({
-          total_energy_kwh: 742,
-          total_savings_inr: 6307,
-          avg_rate: 8.50,
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching savings:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load savings data",
-        variant: "destructive",
-      });
-      // Fallback to mock data
-      setSavingsData({
-        total_energy_kwh: 742,
-        total_savings_inr: 6307,
-        avg_rate: 8.50,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { production, loading } = useSolarProduction();
+  
+  // Mumbai electricity rate (₹/kWh)
+  const electricityRate = 8.50;
+  
+  const monthlyEnergy = production.monthlyTotal;
+  const monthlySavings = monthlyEnergy * electricityRate;
+  const dailyAverage = (monthlySavings / 30).toFixed(2);
+  const yearlyProjection = (monthlySavings * 12).toFixed(2);
 
   if (loading) {
     return (
@@ -73,9 +29,6 @@ export const CostSavingsCalculator = () => {
     );
   }
 
-  const dailyAverage = savingsData ? (savingsData.total_savings_inr / 30).toFixed(2) : 0;
-  const yearlyProjection = savingsData ? (savingsData.total_savings_inr * 12).toFixed(2) : 0;
-
   return (
     <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
       <CardHeader>
@@ -84,7 +37,7 @@ export const CostSavingsCalculator = () => {
           Cost Savings Calculator
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          Based on Mumbai electricity rates (₹{savingsData?.avg_rate.toFixed(2)}/kWh)
+          Based on Mumbai electricity rates (₹{electricityRate.toFixed(2)}/kWh)
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -94,7 +47,7 @@ export const CostSavingsCalculator = () => {
             <div>
               <p className="text-sm text-muted-foreground mb-1">This Month's Savings</p>
               <p className="text-4xl font-bold text-foreground">
-                ₹{savingsData?.total_savings_inr.toFixed(2)}
+                ₹{monthlySavings.toFixed(2)}
               </p>
             </div>
             <div className="p-3 bg-secondary/20 rounded-xl">
@@ -104,7 +57,7 @@ export const CostSavingsCalculator = () => {
           <div className="flex items-center gap-2 text-sm">
             <Zap className="h-4 w-4 text-accent" />
             <span className="text-muted-foreground">
-              {savingsData?.total_energy_kwh.toFixed(2)} kWh generated
+              {monthlyEnergy.toFixed(2)} kWh generated
             </span>
           </div>
         </div>
@@ -134,7 +87,7 @@ export const CostSavingsCalculator = () => {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Grid electricity cost</span>
-              <span className="font-semibold text-destructive">₹{savingsData?.total_savings_inr.toFixed(2)}</span>
+              <span className="font-semibold text-destructive">₹{monthlySavings.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Your solar cost</span>
@@ -143,7 +96,7 @@ export const CostSavingsCalculator = () => {
             <div className="h-px bg-border my-2" />
             <div className="flex justify-between">
               <span className="font-medium">Net savings</span>
-              <span className="font-bold text-secondary">₹{savingsData?.total_savings_inr.toFixed(2)}</span>
+              <span className="font-bold text-secondary">₹{monthlySavings.toFixed(2)}</span>
             </div>
           </div>
         </div>
@@ -154,7 +107,7 @@ export const CostSavingsCalculator = () => {
             Environmental Impact
           </p>
           <p className="text-xs text-muted-foreground">
-            You've offset approximately {((savingsData?.total_energy_kwh || 0) * 0.82).toFixed(2)} kg of CO₂ this month! 🌱
+            You've offset approximately {(monthlyEnergy * 0.82).toFixed(2)} kg of CO₂ this month! 🌱
           </p>
         </div>
       </CardContent>
