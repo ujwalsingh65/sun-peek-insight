@@ -16,9 +16,26 @@ type Alert = {
 };
 
 export const AlertsWidget = () => {
-  const { data: alerts, isLoading } = useQuery({
+  // Trigger alert generation on component mount
+  const { data: alerts, isLoading, refetch } = useQuery({
     queryKey: ["alerts"],
     queryFn: async () => {
+      // Generate fresh alerts
+      try {
+        await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-daily-alerts`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.error('Error generating alerts:', error);
+      }
+
+      // Fetch alerts from database
       const { data, error } = await supabase
         .from("alerts")
         .select("*")
@@ -28,6 +45,8 @@ export const AlertsWidget = () => {
       if (error) throw error;
       return data as Alert[];
     },
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   const getSeverityIcon = (severity: string) => {
