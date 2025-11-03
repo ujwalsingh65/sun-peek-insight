@@ -15,9 +15,13 @@ import {
 import { useSolarProduction } from "@/hooks/useSolarProduction";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const PerformanceChart = () => {
+interface PerformanceChartProps {
+  systemCapacity: number;
+}
+
+export const PerformanceChart = ({ systemCapacity }: PerformanceChartProps) => {
   const [timeRange, setTimeRange] = useState<"day" | "week" | "month">("day");
-  const { production, loading } = useSolarProduction();
+  const { production, loading } = useSolarProduction(systemCapacity);
 
   const data =
     timeRange === "day"

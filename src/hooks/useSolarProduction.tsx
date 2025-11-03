@@ -16,7 +16,7 @@ interface SolarProduction {
   monthlyWeekData: { week: string; energy: number }[];
 }
 
-export const useSolarProduction = () => {
+export const useSolarProduction = (systemCapacity: number = 5.0) => {
   const [production, setProduction] = useState<SolarProduction>({
     currentOutput: 0,
     todayTotal: 0,
@@ -32,8 +32,8 @@ export const useSolarProduction = () => {
     weather: WeatherData,
     hour: number
   ): number => {
-    // Base system capacity in kW
-    const SYSTEM_CAPACITY = 5.0;
+    // Use the provided system capacity
+    const SYSTEM_CAPACITY = systemCapacity;
 
     // Calculate sun intensity based on time of day (peak at noon)
     const getSunIntensity = (h: number): number => {
@@ -244,7 +244,7 @@ export const useSolarProduction = () => {
     const interval = setInterval(fetchWeatherAndCalculate, 15 * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [systemCapacity]);
 
   return { production, loading, refresh: fetchWeatherAndCalculate };
 };

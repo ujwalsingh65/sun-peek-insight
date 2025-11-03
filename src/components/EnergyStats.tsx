@@ -3,8 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useSolarProduction } from "@/hooks/useSolarProduction";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const EnergyStats = () => {
-  const { production, loading } = useSolarProduction();
+interface EnergyStatsProps {
+  systemCapacity: number;
+}
+
+export const EnergyStats = ({ systemCapacity }: EnergyStatsProps) => {
+  const { production, loading } = useSolarProduction(systemCapacity);
 
   const stats = [
     {

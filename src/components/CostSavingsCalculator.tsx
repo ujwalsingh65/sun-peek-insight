@@ -2,8 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { IndianRupee, TrendingUp, Zap, Calendar } from "lucide-react";
 import { useSolarProduction } from "@/hooks/useSolarProduction";
 
-export const CostSavingsCalculator = () => {
-  const { production, loading } = useSolarProduction();
+interface CostSavingsCalculatorProps {
+  systemCapacity: number;
+}
+
+export const CostSavingsCalculator = ({ systemCapacity }: CostSavingsCalculatorProps) => {
+  const { production, loading } = useSolarProduction(systemCapacity);
   
   // Mumbai electricity rate (₹/kWh)
   const electricityRate = 8.50;
