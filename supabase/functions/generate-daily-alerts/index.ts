@@ -30,11 +30,22 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Fetch weather data
+    // Fetch weather data with error handling
     const weatherResponse = await fetch(
       'https://api.open-meteo.com/v1/forecast?latitude=19.12&longitude=72.89&current=temperature_2m,cloud_cover,wind_speed_10m,weather_code&timezone=auto'
     );
+    
+    if (!weatherResponse.ok) {
+      console.error('Weather API failed:', weatherResponse.status);
+      throw new Error('Weather API request failed');
+    }
+    
     const weatherData = await weatherResponse.json();
+    
+    if (!weatherData.current) {
+      console.error('Invalid weather data format');
+      throw new Error('Invalid weather data format');
+    }
     
     const weather: WeatherData = {
       temperature: weatherData.current.temperature_2m,
@@ -43,14 +54,25 @@ Deno.serve(async (req) => {
       weatherCode: weatherData.current.weather_code,
     };
 
-    // Fetch historical production data (last 7 days)
+    // Fetch historical production data (last 7 days) with error handling
     const historyResponse = await fetch(
       'https://archive-api.open-meteo.com/v1/archive?latitude=19.12&longitude=72.89&start_date=' +
       new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] +
       '&end_date=' + new Date().toISOString().split('T')[0] +
       '&hourly=temperature_2m,cloud_cover&timezone=auto'
     );
+    
+    if (!historyResponse.ok) {
+      console.error('Archive API failed:', historyResponse.status);
+      throw new Error('Archive API request failed');
+    }
+    
     const historyData = await historyResponse.json();
+    
+    if (!historyData.hourly || !historyData.hourly.time) {
+      console.error('Invalid history data format');
+      throw new Error('Invalid history data format');
+    }
 
     // Calculate average production for the week
     const calculateProduction = (temp: number, clouds: number, hour: number): number => {
@@ -158,9 +180,12 @@ Deno.serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error occurred';
+    // Log detailed error server-side for debugging
+    console.error('Alert generation failed:', error);
+    
+    // Return generic error message to client
     return new Response(
-      JSON.stringify({ error: message }),
+      JSON.stringify({ error: 'Failed to generate alerts. Please try again later.' }),
       { 
         status: 500, 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 

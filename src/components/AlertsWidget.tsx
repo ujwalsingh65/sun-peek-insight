@@ -20,17 +20,9 @@ export const AlertsWidget = () => {
   const { data: alerts, isLoading, refetch } = useQuery({
     queryKey: ["alerts"],
     queryFn: async () => {
-      // Generate fresh alerts
+      // Generate fresh alerts using proper authentication
       try {
-        await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-daily-alerts`,
-          {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-            },
-          }
-        );
+        await supabase.functions.invoke('generate-daily-alerts');
       } catch (error) {
         console.error('Error generating alerts:', error);
       }
