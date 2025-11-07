@@ -5,10 +5,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface EnergyStatsProps {
   systemCapacity: number;
+  azimuth?: number;
+  tilt?: number;
 }
 
-export const EnergyStats = ({ systemCapacity }: EnergyStatsProps) => {
-  const { production, loading } = useSolarProduction(systemCapacity);
+export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: EnergyStatsProps) => {
+  const { production, loading } = useSolarProduction(systemCapacity, azimuth, tilt);
 
   const stats = [
     {

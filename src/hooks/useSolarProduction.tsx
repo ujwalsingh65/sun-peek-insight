@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { calculatePanelEfficiency } from "@/utils/solarCalculations";
 
 interface WeatherData {
   temperature: number;
@@ -16,7 +17,11 @@ interface SolarProduction {
   monthlyWeekData: { week: string; energy: number }[];
 }
 
-export const useSolarProduction = (systemCapacity: number = 5.0) => {
+export const useSolarProduction = (
+  systemCapacity: number = 5.0,
+  azimuth: number = 180,
+  tilt: number = 19
+) => {
   const [production, setProduction] = useState<SolarProduction>({
     currentOutput: 0,
     todayTotal: 0,
@@ -55,9 +60,12 @@ export const useSolarProduction = (systemCapacity: number = 5.0) => {
         ? 1.0
         : 1.0 - (weather.temperature - 25) * 0.004;
 
-    // Calculate output
+    // Panel orientation efficiency
+    const orientationEfficiency = calculatePanelEfficiency(azimuth, tilt);
+
+    // Calculate output with orientation factor
     const output =
-      SYSTEM_CAPACITY * sunIntensity * cloudFactor * tempFactor;
+      SYSTEM_CAPACITY * sunIntensity * cloudFactor * tempFactor * orientationEfficiency;
 
     return Math.max(0, output);
   };
@@ -244,7 +252,7 @@ export const useSolarProduction = (systemCapacity: number = 5.0) => {
     const interval = setInterval(fetchWeatherAndCalculate, 15 * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [systemCapacity]);
+  }, [systemCapacity, azimuth, tilt]);
 
   return { production, loading, refresh: fetchWeatherAndCalculate };
 };

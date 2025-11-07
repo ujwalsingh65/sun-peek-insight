@@ -7,16 +7,43 @@ import { WeatherWidget } from "@/components/WeatherWidget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
 import { AlertsWidget } from "@/components/AlertsWidget";
 import { SolarPanelSetup } from "@/components/SolarPanelSetup";
+import { SolarPanel3D } from "@/components/SolarPanel3D";
+import { PanelOrientationControls } from "@/components/PanelOrientationControls";
 import { Button } from "@/components/ui/button";
 import { Sun, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getEfficiencyPercentage } from "@/utils/solarCalculations";
 import solarHero from "@/assets/solar-panels-hero.jpg";
 
 const Index = () => {
   const [panelSize, setPanelSize] = useState(5);
+  const [azimuth, setAzimuth] = useState(180); // Default: South-facing
+  const [tilt, setTilt] = useState(19); // Default: Mumbai latitude
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Load orientation settings from localStorage
+  useEffect(() => {
+    const storedAzimuth = localStorage.getItem("panelAzimuth");
+    const storedTilt = localStorage.getItem("panelTilt");
+    
+    if (storedAzimuth) setAzimuth(parseFloat(storedAzimuth));
+    if (storedTilt) setTilt(parseFloat(storedTilt));
+  }, []);
+
+  // Save orientation settings to localStorage
+  const handleAzimuthChange = (value: number) => {
+    setAzimuth(value);
+    localStorage.setItem("panelAzimuth", value.toString());
+  };
+
+  const handleTiltChange = (value: number) => {
+    setTilt(value);
+    localStorage.setItem("panelTilt", value.toString());
+  };
+
+  const efficiency = getEfficiencyPercentage(azimuth, tilt);
 
   useEffect(() => {
     // Check authentication
@@ -123,11 +150,27 @@ const Index = () => {
           </div>
         </div>
 
-        <EnergyStats systemCapacity={panelSize} />
+        {/* 3D Panel Visualization and Controls */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div>
+            <SolarPanel3D azimuth={azimuth} tilt={tilt} />
+          </div>
+          <div>
+            <PanelOrientationControls
+              azimuth={azimuth}
+              tilt={tilt}
+              onAzimuthChange={handleAzimuthChange}
+              onTiltChange={handleTiltChange}
+              efficiency={efficiency}
+            />
+          </div>
+        </div>
+
+        <EnergyStats systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2">
-            <PerformanceChart systemCapacity={panelSize} />
+            <PerformanceChart systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
           </div>
           <div>
             <WeatherWidget />

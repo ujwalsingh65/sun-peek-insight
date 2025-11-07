@@ -17,11 +17,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface PerformanceChartProps {
   systemCapacity: number;
+  azimuth?: number;
+  tilt?: number;
 }
 
-export const PerformanceChart = ({ systemCapacity }: PerformanceChartProps) => {
+export const PerformanceChart = ({ systemCapacity, azimuth = 180, tilt = 19 }: PerformanceChartProps) => {
   const [timeRange, setTimeRange] = useState<"day" | "week" | "month">("day");
-  const { production, loading } = useSolarProduction(systemCapacity);
+  const { production, loading } = useSolarProduction(systemCapacity, azimuth, tilt);
 
   const data =
     timeRange === "day"
