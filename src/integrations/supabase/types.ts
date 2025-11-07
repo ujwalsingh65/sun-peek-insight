@@ -98,7 +98,7 @@ export type Database = {
     }
     Functions: {
       calculate_monthly_savings: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           avg_rate: number
           total_energy_kwh: number
