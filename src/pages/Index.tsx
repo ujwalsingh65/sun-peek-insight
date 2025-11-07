@@ -1,15 +1,64 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { EnergyStats } from "@/components/EnergyStats";
 import { PerformanceChart } from "@/components/PerformanceChart";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
 import { AlertsWidget } from "@/components/AlertsWidget";
 import { SolarPanelSetup } from "@/components/SolarPanelSetup";
-import { Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sun, LogOut } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import solarHero from "@/assets/solar-panels-hero.jpg";
 
 const Index = () => {
   const [panelSize, setPanelSize] = useState(5);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Check authentication
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        navigate("/auth");
+      } else {
+        setLoading(false);
+      }
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session) {
+        navigate("/auth");
+      } else {
+        setLoading(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out.",
+    });
+    navigate("/auth");
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <Sun className="h-12 w-12 text-primary animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -26,13 +75,24 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-transparent" />
         </div>
         <div className="relative container mx-auto px-4 py-16 md:py-24">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-secondary/20 backdrop-blur-sm rounded-2xl border border-secondary/30">
-              <Sun className="h-8 w-8 text-secondary" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-secondary/20 backdrop-blur-sm rounded-2xl border border-secondary/30">
+                <Sun className="h-8 w-8 text-secondary" />
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground">
+                Solar Scope
+              </h1>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground">
-              Solar Scope
-            </h1>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              size="sm"
+              className="bg-background/20 backdrop-blur-sm border-secondary/30 text-primary-foreground hover:bg-background/40"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
           </div>
           <p className="text-xl text-primary-foreground/90 max-w-2xl mb-8">
             Monitor your solar panel performance in real-time. Track energy
