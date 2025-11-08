@@ -7,7 +7,7 @@ import { WeatherWidget } from "@/components/WeatherWidget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
 import { AlertsWidget } from "@/components/AlertsWidget";
 import { SolarPanelSetup } from "@/components/SolarPanelSetup";
-import { SolarPanel3D } from "@/components/SolarPanel3D";
+import { SolarPanel2D } from "@/components/SolarPanel2D";
 import { PanelOrientationControls } from "@/components/PanelOrientationControls";
 import { Button } from "@/components/ui/button";
 import { Sun, LogOut } from "lucide-react";
@@ -153,7 +153,7 @@ const Index = () => {
         {/* 3D Panel Visualization and Controls */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div>
-            <SolarPanel3D azimuth={azimuth} tilt={tilt} />
+            <SolarPanel2D azimuth={azimuth} tilt={tilt} />
           </div>
           <div>
             <PanelOrientationControls
