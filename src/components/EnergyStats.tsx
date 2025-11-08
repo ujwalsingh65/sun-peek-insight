@@ -2,6 +2,7 @@ import { Battery, Zap, TrendingUp, Sun, Info } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSolarProduction } from "@/hooks/useSolarProduction";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -17,6 +18,7 @@ interface EnergyStatsProps {
 
 export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: EnergyStatsProps) => {
   const { production, loading } = useSolarProduction(systemCapacity, azimuth, tilt);
+  const [openTooltip, setOpenTooltip] = useState<number | null>(null);
 
   const productionStartTime = new Date();
   productionStartTime.setHours(6, 0, 0, 0); // Assumes production starts at 6 AM
@@ -93,9 +95,15 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
                 <h3 className="text-sm font-medium text-muted-foreground">
                   {stat.title}
                 </h3>
-                <Tooltip>
+                <Tooltip open={openTooltip === index} onOpenChange={(open) => setOpenTooltip(open ? index : null)}>
                   <TooltipTrigger asChild>
-                    <button className="text-muted-foreground hover:text-foreground transition-colors">
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenTooltip(openTooltip === index ? null : index);
+                      }}
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
                       <Info className="h-4 w-4" />
                     </button>
                   </TooltipTrigger>
