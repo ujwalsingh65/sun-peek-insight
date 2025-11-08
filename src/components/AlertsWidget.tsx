@@ -16,29 +16,42 @@ type Alert = {
 };
 
 export const AlertsWidget = () => {
-  // Trigger alert generation on component mount
   const { data: alerts, isLoading, refetch } = useQuery({
     queryKey: ["alerts"],
     queryFn: async () => {
-      // Generate fresh alerts using proper authentication
-      try {
-        await supabase.functions.invoke('generate-daily-alerts');
-      } catch (error) {
-        console.error('Error generating alerts:', error);
+      // Check if alerts have already been generated today
+      const lastGeneratedDate = localStorage.getItem('alerts_last_generated');
+      const today = new Date().toDateString();
+      
+      // Only generate alerts if not generated today
+      if (lastGeneratedDate !== today) {
+        try {
+          const { data: generateResult } = await supabase.functions.invoke('generate-daily-alerts');
+          if (generateResult?.success) {
+            localStorage.setItem('alerts_last_generated', today);
+            console.log('Daily alerts generated successfully');
+          }
+        } catch (error) {
+          console.error('Error generating alerts:', error);
+        }
       }
 
-      // Fetch alerts from database
+      // Fetch today's alerts from database
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      
       const { data, error } = await supabase
         .from("alerts")
         .select("*")
+        .gte("created_at", startOfDay.toISOString())
         .order("created_at", { ascending: false })
         .limit(5);
 
       if (error) throw error;
       return data as Alert[];
     },
-    staleTime: 0,
-    refetchOnMount: true,
+    staleTime: 1000 * 60 * 60, // Cache for 1 hour
+    refetchOnMount: false,
   });
 
   const getSeverityIcon = (severity: string) => {

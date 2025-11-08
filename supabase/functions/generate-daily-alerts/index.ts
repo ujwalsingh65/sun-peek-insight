@@ -156,11 +156,24 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Delete today's alerts to avoid duplicates
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    
+    await supabase
+      .from('alerts')
+      .delete()
+      .gte('created_at', startOfDay.toISOString());
+    
+    console.log('Cleared today\'s alerts');
+
     // Clear old alerts (older than 7 days)
     await supabase
       .from('alerts')
       .delete()
       .lt('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString());
+    
+    console.log('Cleared old alerts');
 
     // Insert new alerts
     if (alerts.length > 0) {
@@ -169,6 +182,7 @@ Deno.serve(async (req) => {
         .insert(alerts);
 
       if (error) throw error;
+      console.log(`Successfully inserted ${alerts.length} new alerts`);
     }
 
     return new Response(
