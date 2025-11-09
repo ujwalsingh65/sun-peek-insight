@@ -79,7 +79,7 @@ export const AlertsWidget = () => {
   };
 
   return (
-    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
+    <Card className="border-border/50 premium-glass shadow-card hover:shadow-premium transition-all duration-500 card-glow">
       <CardHeader>
         <CardTitle className="flex items-center gap-3">
           <div className="p-2 bg-gradient-accent rounded-lg shadow-glow">

@@ -36,7 +36,7 @@ export const PerformanceChart = ({ systemCapacity, azimuth = 180, tilt = 19 }: P
     timeRange === "day" ? "time" : timeRange === "week" ? "day" : "week";
 
   return (
-    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
+    <Card className="border-border/50 premium-glass shadow-card hover:shadow-premium transition-all duration-500 card-glow">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl font-semibold">
