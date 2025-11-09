@@ -98,7 +98,7 @@ export const WeatherWidget = () => {
     : 85;
 
   return (
-    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
           Weather Conditions
@@ -125,9 +125,9 @@ export const WeatherWidget = () => {
 
         {weather && !loading && (
           <>
-            <div className="flex items-center justify-between p-4 bg-gradient-to-br from-secondary/10 to-transparent rounded-xl">
-              <div className="flex items-center gap-3">
-                <Sun className="h-10 w-10 text-secondary" />
+            <div className="flex items-center justify-between p-5 bg-gradient-to-br from-secondary/20 via-secondary/10 to-transparent rounded-2xl border border-secondary/20 shadow-lg">
+              <div className="flex items-center gap-4">
+                <Sun className="h-12 w-12 text-secondary drop-shadow-lg" />
                 <div>
                   <p className="text-3xl font-bold">{weather.temperature}°C</p>
                   <p className="text-sm text-muted-foreground">

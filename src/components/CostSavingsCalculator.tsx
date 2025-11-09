@@ -19,7 +19,7 @@ export const CostSavingsCalculator = ({ systemCapacity }: CostSavingsCalculatorP
 
   if (loading) {
     return (
-      <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+      <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card card-glow">
         <CardHeader>
           <CardTitle className="text-xl font-semibold flex items-center gap-2">
             <IndianRupee className="h-5 w-5 text-secondary" />
@@ -34,28 +34,30 @@ export const CostSavingsCalculator = ({ systemCapacity }: CostSavingsCalculatorP
   }
 
   return (
-    <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
       <CardHeader>
-        <CardTitle className="text-xl font-semibold flex items-center gap-2">
-          <IndianRupee className="h-5 w-5 text-secondary" />
+        <CardTitle className="text-xl font-semibold flex items-center gap-3">
+          <div className="p-2 bg-gradient-secondary rounded-lg shadow-glow">
+            <IndianRupee className="h-5 w-5 text-secondary-foreground" />
+          </div>
           Cost Savings Calculator
         </CardTitle>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground mt-1">
           Based on Mumbai electricity rates (₹{electricityRate.toFixed(2)}/kWh)
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Monthly Savings */}
-        <div className="p-6 bg-gradient-to-br from-secondary/20 via-secondary/10 to-transparent rounded-xl border border-secondary/30">
+        <div className="p-6 bg-gradient-to-br from-secondary/20 via-secondary/10 to-transparent rounded-2xl border border-secondary/30 shadow-lg hover:shadow-glow transition-all duration-300">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-sm text-muted-foreground mb-1">This Month's Savings</p>
-              <p className="text-4xl font-bold text-foreground">
+              <p className="text-sm text-muted-foreground mb-2 font-medium">This Month's Savings</p>
+              <p className="text-4xl font-bold bg-gradient-secondary bg-clip-text text-transparent">
                 ₹{monthlySavings.toFixed(2)}
               </p>
             </div>
-            <div className="p-3 bg-secondary/20 rounded-xl">
-              <TrendingUp className="h-8 w-8 text-secondary" />
+            <div className="p-3 bg-gradient-secondary rounded-xl shadow-glow">
+              <TrendingUp className="h-8 w-8 text-secondary-foreground" />
             </div>
           </div>
           <div className="flex items-center gap-2 text-sm">
@@ -68,20 +70,20 @@ export const CostSavingsCalculator = ({ systemCapacity }: CostSavingsCalculatorP
 
         {/* Daily & Yearly Projections */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="p-4 bg-muted/50 rounded-lg">
+          <div className="p-5 bg-gradient-to-br from-muted/80 to-muted/40 rounded-xl border border-border/50 hover:shadow-md transition-all duration-300">
             <div className="flex items-center gap-2 mb-2">
               <Calendar className="h-4 w-4 text-accent" />
-              <p className="text-xs text-muted-foreground">Daily Average</p>
+              <p className="text-xs text-muted-foreground font-medium">Daily Average</p>
             </div>
-            <p className="text-2xl font-bold text-foreground">₹{dailyAverage}</p>
+            <p className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">₹{dailyAverage}</p>
           </div>
           
-          <div className="p-4 bg-muted/50 rounded-lg">
+          <div className="p-5 bg-gradient-to-br from-muted/80 to-muted/40 rounded-xl border border-border/50 hover:shadow-md transition-all duration-300">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="h-4 w-4 text-secondary" />
-              <p className="text-xs text-muted-foreground">Yearly Projection</p>
+              <p className="text-xs text-muted-foreground font-medium">Yearly Projection</p>
             </div>
-            <p className="text-2xl font-bold text-foreground">₹{yearlyProjection}</p>
+            <p className="text-2xl font-bold bg-gradient-secondary bg-clip-text text-transparent">₹{yearlyProjection}</p>
           </div>
         </div>
 

@@ -80,14 +80,14 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
         {stats.map((stat, index) => (
           <Card
             key={index}
-            className="border-border/50 bg-card/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300 hover:scale-105"
+            className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 card-glow"
           >
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-xl bg-gradient-to-br from-primary/10 to-transparent ${stat.color}`}>
-                  <stat.icon className="h-6 w-6" />
+                <div className={`p-3 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 shadow-md ${stat.color} transition-transform duration-300 hover:scale-110`}>
+                  <stat.icon className="h-6 w-6 drop-shadow" />
                 </div>
-                <span className="text-xs font-semibold text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                <span className="text-xs font-semibold text-green-500 bg-gradient-to-r from-green-500/20 to-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">
                   {stat.trend}
                 </span>
               </div>

@@ -79,9 +79,14 @@ export const AlertsWidget = () => {
   };
 
   return (
-    <Card>
+    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
       <CardHeader>
-        <CardTitle>Smart Alerts</CardTitle>
+        <CardTitle className="flex items-center gap-3">
+          <div className="p-2 bg-gradient-accent rounded-lg shadow-glow">
+            <AlertCircle className="h-5 w-5 text-accent-foreground" />
+          </div>
+          Smart Alerts
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {isLoading ? (
@@ -94,7 +99,7 @@ export const AlertsWidget = () => {
           alerts.map((alert) => (
             <div
               key={alert.id}
-              className="flex gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+              className="flex gap-3 p-4 rounded-xl border border-border/50 bg-gradient-to-br from-card to-card/50 hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
             >
               <div className="mt-0.5">{getSeverityIcon(alert.severity)}</div>
               <div className="flex-1 space-y-1">

@@ -92,22 +92,23 @@ const Index = () => {
       <SolarPanelSetup onSizeSet={setPanelSize} />
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden">
+      <header className="relative overflow-hidden shadow-2xl">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${solarHero})`,
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-glow" />
         </div>
-        <div className="relative container mx-auto px-4 py-16 md:py-24">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-secondary/20 backdrop-blur-sm rounded-2xl border border-secondary/30">
-                <Sun className="h-8 w-8 text-secondary" />
+        <div className="relative container mx-auto px-4 py-16 md:py-24 animate-fade-in">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-secondary/20 backdrop-blur-sm rounded-2xl border border-secondary/30 shadow-glow">
+                <Sun className="h-8 w-8 text-secondary drop-shadow-lg" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground">
+              <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground drop-shadow-lg">
                 Solar Scope
               </h1>
             </div>
@@ -121,41 +122,41 @@ const Index = () => {
               Logout
             </Button>
           </div>
-          <p className="text-xl text-primary-foreground/90 max-w-2xl mb-8">
+          <p className="text-xl md:text-2xl text-primary-foreground/95 max-w-3xl mb-10 leading-relaxed drop-shadow">
             Monitor your solar panel performance in real-time. Track energy
             production, weather conditions, and optimize your solar efficiency.
           </p>
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg">
-            <span>Live Monitoring Active</span>
-            <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-secondary text-secondary-foreground rounded-2xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-glow shadow-xl cursor-pointer">
+            <span className="text-lg">Live Monitoring Active</span>
+            <div className="h-3 w-3 bg-green-400 rounded-full animate-glow shadow-lg" />
           </div>
         </div>
       </header>
 
       {/* Dashboard Content */}
-      <main className="container mx-auto px-4 py-8 md:py-12">
-        <div className="mb-6 p-4 bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-secondary/20 rounded-lg">
-              <Sun className="h-5 w-5 text-secondary" />
+      <main className="container mx-auto px-4 py-8 md:py-16 space-y-8">
+        <div className="p-6 bg-gradient-to-br from-card via-card to-card/50 backdrop-blur-sm rounded-2xl border border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-gradient-secondary rounded-xl shadow-glow">
+              <Sun className="h-6 w-6 text-secondary-foreground" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">System Capacity</p>
-              <p className="text-xl font-bold">{panelSize} kW</p>
+              <p className="text-sm text-muted-foreground font-medium">System Capacity</p>
+              <p className="text-2xl font-bold bg-gradient-secondary bg-clip-text text-transparent">{panelSize} kW</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-muted-foreground">Estimated Panels</p>
-            <p className="text-xl font-bold">{Math.ceil(panelSize / 0.4)} panels</p>
+            <p className="text-sm text-muted-foreground font-medium">Estimated Panels</p>
+            <p className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">{Math.ceil(panelSize / 0.4)} panels</p>
           </div>
         </div>
 
         {/* 3D Panel Visualization and Controls */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="animate-slide-up">
             <SolarPanel2D azimuth={azimuth} tilt={tilt} />
           </div>
-          <div>
+          <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <PanelOrientationControls
               azimuth={azimuth}
               tilt={tilt}
@@ -166,9 +167,11 @@ const Index = () => {
           </div>
         </div>
 
-        <EnergyStats systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
+        <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <EnergyStats systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up" style={{ animationDelay: '0.3s' }}>
           <div className="lg:col-span-2">
             <PerformanceChart systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
           </div>
@@ -177,7 +180,7 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
           <div className="lg:col-span-2">
             <CostSavingsCalculator systemCapacity={panelSize} />
           </div>
