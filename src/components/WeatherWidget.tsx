@@ -98,7 +98,7 @@ export const WeatherWidget = () => {
     : 85;
 
   return (
-    <Card className="border-border/50 premium-glass shadow-card hover:shadow-premium transition-all duration-500 card-glow">
+    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
           Weather Conditions

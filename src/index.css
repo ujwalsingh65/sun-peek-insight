@@ -8,23 +8,23 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 35 40% 96%;
-    --foreground: 220 40% 12%;
+    --background: 220 30% 97%;
+    --foreground: 220 40% 10%;
 
-    --card: 35 50% 98%;
-    --card-foreground: 220 40% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 10%;
 
-    --popover: 35 50% 98%;
-    --popover-foreground: 220 40% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 10%;
 
-    --primary: 220 75% 18%;
-    --primary-foreground: 35 100% 97%;
+    --primary: 220 70% 20%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 35 100% 55%;
     --secondary-foreground: 220 40% 10%;
 
-    --muted: 35 30% 92%;
-    --muted-foreground: 220 25% 45%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 20% 45%;
 
     --accent: 180 70% 50%;
     --accent-foreground: 0 0% 100%;
@@ -32,29 +32,24 @@ All colors MUST be HSL.
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 25% 88%;
-    --input: 35 25% 90%;
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
     --ring: 220 70% 20%;
 
     --radius: 0.75rem;
     
-    /* Premium gradients */
-    --solar-gradient: linear-gradient(135deg, hsl(220 75% 20%), hsl(35 100% 55%));
-    --gradient-primary: linear-gradient(135deg, hsl(220 75% 18%) 0%, hsl(220 70% 28%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(35 100% 52%) 0%, hsl(35 100% 62%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(180 70% 48%) 0%, hsl(180 75% 58%) 100%);
-    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(35 100% 55% / 0.08), transparent 70%);
-    --gradient-mesh: 
-      radial-gradient(at 0% 0%, hsl(35 100% 95% / 0.3) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsl(180 70% 95% / 0.2) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsl(35 100% 92% / 0.3) 0px, transparent 50%);
+    /* Beautiful gradients */
+    --solar-gradient: linear-gradient(135deg, hsl(220 70% 25%), hsl(35 100% 55%));
+    --gradient-primary: linear-gradient(135deg, hsl(220 70% 20%) 0%, hsl(220 70% 30%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(35 100% 50%) 0%, hsl(35 100% 60%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(180 70% 45%) 0%, hsl(180 70% 55%) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(35 100% 55% / 0.15), transparent 70%);
     
-    /* Premium shadows & effects */
-    --energy-glow: 0 0 40px hsl(35 100% 55% / 0.25), 0 0 80px hsl(35 100% 55% / 0.1);
-    --card-shadow: 0 2px 8px hsl(220 70% 20% / 0.04), 0 4px 16px hsl(220 70% 20% / 0.06);
-    --card-shadow-hover: 0 4px 16px hsl(220 70% 20% / 0.08), 0 8px 32px hsl(220 70% 20% / 0.12);
-    --glow-shadow: 0 0 48px hsl(35 100% 55% / 0.3), 0 0 24px hsl(35 100% 60% / 0.15);
-    --premium-shadow: 0 10px 40px hsl(220 70% 20% / 0.12), 0 2px 8px hsl(220 70% 20% / 0.08);
+    /* Elegant shadows */
+    --energy-glow: 0 0 30px hsl(35 100% 55% / 0.3);
+    --card-shadow: 0 4px 20px hsl(220 70% 20% / 0.1);
+    --card-shadow-hover: 0 8px 32px hsl(220 70% 20% / 0.15);
+    --glow-shadow: 0 0 40px hsl(35 100% 55% / 0.2);
     
     /* Smooth transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -62,51 +57,46 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 220 45% 9%;
-    --foreground: 35 20% 95%;
+    --background: 220 45% 8%;
+    --foreground: 220 20% 95%;
 
-    --card: 220 40% 13%;
-    --card-foreground: 35 20% 95%;
+    --card: 220 40% 12%;
+    --card-foreground: 220 20% 95%;
 
-    --popover: 220 40% 13%;
-    --popover-foreground: 35 20% 95%;
+    --popover: 220 40% 12%;
+    --popover-foreground: 220 20% 95%;
 
     --primary: 35 100% 55%;
     --primary-foreground: 220 40% 10%;
 
-    --secondary: 220 50% 22%;
-    --secondary-foreground: 35 20% 95%;
+    --secondary: 220 50% 20%;
+    --secondary-foreground: 220 20% 95%;
 
-    --muted: 220 40% 19%;
-    --muted-foreground: 35 15% 65%;
+    --muted: 220 40% 18%;
+    --muted-foreground: 220 20% 65%;
 
     --accent: 180 70% 50%;
     --accent-foreground: 220 40% 10%;
 
     --destructive: 0 62.8% 50%;
-    --destructive-foreground: 35 20% 95%;
+    --destructive-foreground: 220 20% 95%;
 
-    --border: 220 40% 19%;
-    --input: 220 40% 19%;
+    --border: 220 40% 18%;
+    --input: 220 40% 18%;
     --ring: 35 100% 55%;
     
-    /* Premium gradients - dark mode */
-    --solar-gradient: linear-gradient(135deg, hsl(220 70% 15%), hsl(35 100% 50%));
-    --gradient-primary: linear-gradient(135deg, hsl(35 100% 52%) 0%, hsl(35 100% 62%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(220 50% 18%) 0%, hsl(220 50% 28%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(180 70% 48%) 0%, hsl(180 75% 58%) 100%);
-    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(35 100% 45% / 0.12), transparent 70%);
-    --gradient-mesh: 
-      radial-gradient(at 0% 0%, hsl(35 100% 15% / 0.4) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsl(180 70% 15% / 0.3) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsl(35 100% 10% / 0.4) 0px, transparent 50%);
+    /* Beautiful gradients - dark mode */
+    --solar-gradient: linear-gradient(135deg, hsl(220 70% 15%), hsl(35 100% 45%));
+    --gradient-primary: linear-gradient(135deg, hsl(35 100% 50%) 0%, hsl(35 100% 60%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(220 50% 15%) 0%, hsl(220 50% 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(180 70% 45%) 0%, hsl(180 70% 55%) 100%);
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(35 100% 45% / 0.2), transparent 70%);
     
-    /* Premium shadows - dark mode */
-    --energy-glow: 0 0 48px hsl(35 100% 50% / 0.4), 0 0 96px hsl(35 100% 50% / 0.15);
-    --card-shadow: 0 4px 24px hsl(0 0% 0% / 0.5), 0 2px 8px hsl(0 0% 0% / 0.3);
-    --card-shadow-hover: 0 8px 32px hsl(0 0% 0% / 0.6), 0 4px 16px hsl(0 0% 0% / 0.4);
-    --glow-shadow: 0 0 60px hsl(35 100% 50% / 0.4), 0 0 30px hsl(35 100% 55% / 0.2);
-    --premium-shadow: 0 12px 48px hsl(0 0% 0% / 0.6), 0 4px 16px hsl(0 0% 0% / 0.4);
+    /* Elegant shadows - dark mode */
+    --energy-glow: 0 0 40px hsl(35 100% 45% / 0.4);
+    --card-shadow: 0 4px 30px hsl(0 0% 0% / 0.4);
+    --card-shadow-hover: 0 8px 40px hsl(0 0% 0% / 0.5);
+    --glow-shadow: 0 0 50px hsl(35 100% 45% / 0.3);
     
     /* Smooth transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -122,15 +112,12 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "ss02", "cv01", "cv03";
-    background-image: var(--gradient-mesh);
-    background-attachment: fixed;
   }
   
-  /* Premium utility classes */
+  /* Custom utility classes */
   .card-glow {
     box-shadow: var(--card-shadow);
     transition: var(--transition-smooth);
-    backdrop-filter: blur(20px);
   }
   
   .card-glow:hover {
@@ -143,11 +130,5 @@ All colors MUST be HSL.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-  
-  .premium-glass {
-    background: linear-gradient(135deg, hsl(var(--card) / 0.95), hsl(var(--card) / 0.85));
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid hsl(var(--border) / 0.5);
   }
 }

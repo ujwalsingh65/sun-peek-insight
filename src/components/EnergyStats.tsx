@@ -80,14 +80,14 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
         {stats.map((stat, index) => (
           <Card
             key={index}
-            className="border-border/50 premium-glass shadow-card hover:shadow-premium transition-all duration-500 hover:scale-[1.03] hover:-translate-y-2 group"
+            className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 card-glow"
           >
-            <CardContent className="p-7">
-              <div className="flex items-start justify-between mb-5">
-                <div className={`p-4 rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 shadow-lg ${stat.color} transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow`}>
-                  <stat.icon className="h-7 w-7 drop-shadow-lg" />
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className={`p-3 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 shadow-md ${stat.color} transition-transform duration-300 hover:scale-110`}>
+                  <stat.icon className="h-6 w-6 drop-shadow" />
                 </div>
-                <span className="text-xs font-bold text-green-500 bg-gradient-to-r from-green-500/25 to-green-500/15 px-4 py-2 rounded-full border border-green-500/30 shadow-sm">
+                <span className="text-xs font-semibold text-green-500 bg-gradient-to-r from-green-500/20 to-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">
                   {stat.trend}
                 </span>
               </div>
@@ -122,9 +122,9 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
                 </Tooltip>
               </div>
               {loading ? (
-                <Skeleton className="h-9 w-28" />
+                <Skeleton className="h-8 w-24" />
               ) : (
-                <p className="text-3xl font-bold text-foreground tracking-tight">{stat.value}</p>
+                <p className="text-2xl font-bold text-foreground">{stat.value}</p>
               )}
             </CardContent>
           </Card>

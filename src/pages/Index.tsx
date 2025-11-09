@@ -88,19 +88,19 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <SolarPanelSetup onSizeSet={setPanelSize} />
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden shadow-premium">
+      <header className="relative overflow-hidden shadow-2xl">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${solarHero})`,
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/96 via-primary/90 to-primary/75" />
-          <div className="absolute inset-0 bg-gradient-glow opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-glow" />
         </div>
         <div className="relative container mx-auto px-4 py-16 md:py-24 animate-fade-in">
           <div className="flex items-center justify-between mb-8">
@@ -135,19 +135,19 @@ const Index = () => {
 
       {/* Dashboard Content */}
       <main className="container mx-auto px-4 py-8 md:py-16 space-y-8">
-        <div className="p-8 premium-glass rounded-3xl shadow-premium hover:shadow-glow transition-all duration-500 flex items-center justify-between group">
-          <div className="flex items-center gap-5">
-            <div className="p-4 bg-gradient-secondary rounded-2xl shadow-glow group-hover:scale-110 transition-transform duration-300">
-              <Sun className="h-7 w-7 text-secondary-foreground" />
+        <div className="p-6 bg-gradient-to-br from-card via-card to-card/50 backdrop-blur-sm rounded-2xl border border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-gradient-secondary rounded-xl shadow-glow">
+              <Sun className="h-6 w-6 text-secondary-foreground" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground font-semibold uppercase tracking-wide mb-1">System Capacity</p>
-              <p className="text-3xl font-bold bg-gradient-secondary bg-clip-text text-transparent">{panelSize} kW</p>
+              <p className="text-sm text-muted-foreground font-medium">System Capacity</p>
+              <p className="text-2xl font-bold bg-gradient-secondary bg-clip-text text-transparent">{panelSize} kW</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm text-muted-foreground font-semibold uppercase tracking-wide mb-1">Estimated Panels</p>
-            <p className="text-3xl font-bold bg-gradient-accent bg-clip-text text-transparent">{Math.ceil(panelSize / 0.4)} panels</p>
+            <p className="text-sm text-muted-foreground font-medium">Estimated Panels</p>
+            <p className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">{Math.ceil(panelSize / 0.4)} panels</p>
           </div>
         </div>
 
