@@ -19,7 +19,7 @@ export const CostSavingsCalculator = ({ systemCapacity }: CostSavingsCalculatorP
 
   if (loading) {
     return (
-      <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card card-glow">
+      <Card className="border-border/50 premium-glass shadow-card card-glow">
         <CardHeader>
           <CardTitle className="text-xl font-semibold flex items-center gap-2">
             <IndianRupee className="h-5 w-5 text-secondary" />
@@ -34,7 +34,7 @@ export const CostSavingsCalculator = ({ systemCapacity }: CostSavingsCalculatorP
   }
 
   return (
-    <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
+    <Card className="border-border/50 premium-glass shadow-card hover:shadow-premium transition-all duration-500 card-glow">
       <CardHeader>
         <CardTitle className="text-xl font-semibold flex items-center gap-3">
           <div className="p-2 bg-gradient-secondary rounded-lg shadow-glow">

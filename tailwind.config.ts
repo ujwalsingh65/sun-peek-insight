@@ -70,6 +70,10 @@ export default {
         'card-hover': 'var(--card-shadow-hover)',
         'glow': 'var(--glow-shadow)',
         'energy': 'var(--energy-glow)',
+        'premium': 'var(--premium-shadow)',
+      },
+      backgroundImage: {
+        'mesh': 'var(--gradient-mesh)',
       },
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
