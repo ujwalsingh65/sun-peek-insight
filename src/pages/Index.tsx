@@ -12,38 +12,24 @@ import { PanelOrientationControls } from "@/components/PanelOrientationControls"
 import { Button } from "@/components/ui/button";
 import { Sun, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { getEfficiencyPercentage } from "@/utils/solarCalculations";
 import solarHero from "@/assets/solar-panels-hero.jpg";
 
 const Index = () => {
-  const [panelSize, setPanelSize] = useState(5);
-  const [azimuth, setAzimuth] = useState(180); // Default: South-facing
-  const [tilt, setTilt] = useState(19); // Default: Mumbai latitude
-  const [loading, setLoading] = useState(true);
+  const { 
+    config, 
+    loading: configLoading, 
+    hasConfig, 
+    updatePanelSize,
+    updateAzimuth,
+    updateTilt 
+  } = useSolarConfig();
+  const [authLoading, setAuthLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Load orientation settings from localStorage
-  useEffect(() => {
-    const storedAzimuth = localStorage.getItem("panelAzimuth");
-    const storedTilt = localStorage.getItem("panelTilt");
-    
-    if (storedAzimuth) setAzimuth(parseFloat(storedAzimuth));
-    if (storedTilt) setTilt(parseFloat(storedTilt));
-  }, []);
-
-  // Save orientation settings to localStorage
-  const handleAzimuthChange = (value: number) => {
-    setAzimuth(value);
-    localStorage.setItem("panelAzimuth", value.toString());
-  };
-
-  const handleTiltChange = (value: number) => {
-    setTilt(value);
-    localStorage.setItem("panelTilt", value.toString());
-  };
-
-  const efficiency = getEfficiencyPercentage(azimuth, tilt);
+  const efficiency = getEfficiencyPercentage(config.azimuth, config.tilt);
 
   useEffect(() => {
     // Check authentication
@@ -51,7 +37,7 @@ const Index = () => {
       if (!session) {
         navigate("/auth");
       } else {
-        setLoading(false);
+        setAuthLoading(false);
       }
     });
 
@@ -60,7 +46,7 @@ const Index = () => {
       if (!session) {
         navigate("/auth");
       } else {
-        setLoading(false);
+        setAuthLoading(false);
       }
     });
 
@@ -76,7 +62,7 @@ const Index = () => {
     navigate("/auth");
   };
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
@@ -89,7 +75,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SolarPanelSetup onSizeSet={setPanelSize} />
+      <SolarPanelSetup 
+        panelSize={config.panelSize} 
+        hasConfig={hasConfig} 
+        loading={configLoading}
+        onSave={updatePanelSize}
+      />
       
       {/* Hero Section */}
       <header className="relative overflow-hidden shadow-2xl">
@@ -142,38 +133,38 @@ const Index = () => {
             </div>
             <div>
               <p className="text-sm text-muted-foreground font-medium">System Capacity</p>
-              <p className="text-2xl font-bold bg-gradient-secondary bg-clip-text text-transparent">{panelSize} kW</p>
+              <p className="text-2xl font-bold bg-gradient-secondary bg-clip-text text-transparent">{config.panelSize} kW</p>
             </div>
           </div>
           <div className="text-right">
             <p className="text-sm text-muted-foreground font-medium">Estimated Panels</p>
-            <p className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">{Math.ceil(panelSize / 0.4)} panels</p>
+            <p className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">{Math.ceil(config.panelSize / 0.4)} panels</p>
           </div>
         </div>
 
         {/* 3D Panel Visualization and Controls */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="animate-slide-up">
-            <SolarPanel2D azimuth={azimuth} tilt={tilt} />
+            <SolarPanel2D azimuth={config.azimuth} tilt={config.tilt} />
           </div>
           <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <PanelOrientationControls
-              azimuth={azimuth}
-              tilt={tilt}
-              onAzimuthChange={handleAzimuthChange}
-              onTiltChange={handleTiltChange}
+              azimuth={config.azimuth}
+              tilt={config.tilt}
+              onAzimuthChange={(value) => updateAzimuth(value)}
+              onTiltChange={(value) => updateTilt(value)}
               efficiency={efficiency}
             />
           </div>
         </div>
 
         <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
-          <EnergyStats systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
+          <EnergyStats systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up" style={{ animationDelay: '0.3s' }}>
           <div className="lg:col-span-2">
-            <PerformanceChart systemCapacity={panelSize} azimuth={azimuth} tilt={tilt} />
+            <PerformanceChart systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
           </div>
           <div>
             <WeatherWidget />
@@ -182,7 +173,7 @@ const Index = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
           <div className="lg:col-span-2">
-            <CostSavingsCalculator systemCapacity={panelSize} />
+            <CostSavingsCalculator systemCapacity={config.panelSize} />
           </div>
           <div>
             <AlertsWidget />

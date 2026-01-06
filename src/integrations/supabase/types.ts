@@ -92,6 +92,36 @@ export type Database = {
         }
         Relationships: []
       }
+      solar_panel_configs: {
+        Row: {
+          azimuth: number
+          created_at: string
+          id: string
+          panel_size: number
+          tilt: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          azimuth?: number
+          created_at?: string
+          id?: string
+          panel_size?: number
+          tilt?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          azimuth?: number
+          created_at?: string
+          id?: string
+          panel_size?: number
+          tilt?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -10,32 +10,44 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { Settings, Sun } from "lucide-react";
+import { Settings, Sun, Loader2 } from "lucide-react";
 
 interface SolarPanelSetupProps {
-  onSizeSet: (size: number) => void;
+  panelSize: number;
+  hasConfig: boolean;
+  loading: boolean;
+  onSave: (size: number) => Promise<boolean>;
 }
 
-export const SolarPanelSetup = ({ onSizeSet }: SolarPanelSetupProps) => {
+export const SolarPanelSetup = ({ 
+  panelSize: initialSize, 
+  hasConfig, 
+  loading,
+  onSave 
+}: SolarPanelSetupProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [panelSize, setPanelSize] = useState(5);
-  const [showSettings, setShowSettings] = useState(false);
+  const [panelSize, setPanelSize] = useState(initialSize);
+  const [saving, setSaving] = useState(false);
 
+  // Open dialog if no config exists
   useEffect(() => {
-    const storedSize = localStorage.getItem("solarPanelSize");
-    if (!storedSize) {
+    if (!loading && !hasConfig) {
       setIsOpen(true);
-    } else {
-      setPanelSize(parseFloat(storedSize));
-      onSizeSet(parseFloat(storedSize));
     }
-  }, []);
+  }, [loading, hasConfig]);
 
-  const handleSave = () => {
-    localStorage.setItem("solarPanelSize", panelSize.toString());
-    onSizeSet(panelSize);
-    setIsOpen(false);
-    setShowSettings(true);
+  // Sync local state with prop
+  useEffect(() => {
+    setPanelSize(initialSize);
+  }, [initialSize]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    const success = await onSave(panelSize);
+    setSaving(false);
+    if (success) {
+      setIsOpen(false);
+    }
   };
 
   const handleReconfigure = () => {
@@ -44,7 +56,7 @@ export const SolarPanelSetup = ({ onSizeSet }: SolarPanelSetupProps) => {
 
   return (
     <>
-      {showSettings && (
+      {hasConfig && (
         <button
           onClick={handleReconfigure}
           className="fixed bottom-6 right-6 p-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-50"
@@ -76,7 +88,7 @@ export const SolarPanelSetup = ({ onSizeSet }: SolarPanelSetupProps) => {
                 <Slider
                   id="panel-size"
                   min={1}
-                  max={20}
+                  max={100}
                   step={0.5}
                   value={[panelSize]}
                   onValueChange={(value) => setPanelSize(value[0])}
@@ -85,16 +97,16 @@ export const SolarPanelSetup = ({ onSizeSet }: SolarPanelSetupProps) => {
                 <Input
                   type="number"
                   min={1}
-                  max={20}
+                  max={100}
                   step={0.5}
                   value={panelSize}
-                  onChange={(e) => setPanelSize(parseFloat(e.target.value) || 1)}
+                  onChange={(e) => setPanelSize(Math.min(100, Math.max(1, parseFloat(e.target.value) || 1)))}
                   className="w-24"
                 />
               </div>
 
               <p className="text-sm text-muted-foreground">
-                Typical residential systems range from 3-10 kW
+                Typical residential systems range from 3-10 kW. Commercial systems can be up to 100 kW.
               </p>
             </div>
 
@@ -102,7 +114,7 @@ export const SolarPanelSetup = ({ onSizeSet }: SolarPanelSetupProps) => {
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">System Type:</span>
                 <span className="font-medium">
-                  {panelSize < 3 ? "Small" : panelSize < 7 ? "Medium" : panelSize < 12 ? "Large" : "Industrial"}
+                  {panelSize < 3 ? "Small" : panelSize < 7 ? "Medium" : panelSize < 12 ? "Large" : panelSize < 50 ? "Commercial" : "Industrial"}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
@@ -120,8 +132,16 @@ export const SolarPanelSetup = ({ onSizeSet }: SolarPanelSetupProps) => {
             onClick={handleSave} 
             className="w-full"
             size="lg"
+            disabled={saving}
           >
-            Save Configuration
+            {saving ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save Configuration"
+            )}
           </Button>
         </DialogContent>
       </Dialog>
