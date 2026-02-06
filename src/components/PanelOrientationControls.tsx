@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Compass, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PanelOrientationControlsProps {
   azimuth: number;
@@ -19,6 +20,8 @@ export const PanelOrientationControls = ({
   onTiltChange,
   efficiency,
 }: PanelOrientationControlsProps) => {
+  const { t } = useLanguage();
+
   const getDirectionLabel = (degrees: number) => {
     if (degrees >= 337.5 || degrees < 22.5) return "N";
     if (degrees >= 22.5 && degrees < 67.5) return "NE";
@@ -31,10 +34,10 @@ export const PanelOrientationControls = ({
   };
 
   const getEfficiencyStatus = (eff: number) => {
-    if (eff >= 95) return { label: "Optimal", color: "bg-green-500" };
-    if (eff >= 80) return { label: "Good", color: "bg-blue-500" };
-    if (eff >= 60) return { label: "Fair", color: "bg-yellow-500" };
-    return { label: "Poor", color: "bg-red-500" };
+    if (eff >= 95) return { label: t("optimal"), color: "bg-green-500" };
+    if (eff >= 80) return { label: t("good"), color: "bg-blue-500" };
+    if (eff >= 60) return { label: t("fair"), color: "bg-yellow-500" };
+    return { label: t("poor"), color: "bg-red-500" };
   };
 
   const status = getEfficiencyStatus(efficiency);
@@ -43,23 +46,22 @@ export const PanelOrientationControls = ({
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>Panel Orientation</CardTitle>
+          <CardTitle>{t("panelOrientation")}</CardTitle>
           <Badge variant="outline" className="gap-2">
             <div className={`h-2 w-2 rounded-full ${status.color}`} />
             {status.label} ({efficiency.toFixed(0)}%)
           </Badge>
         </div>
         <CardDescription>
-          Adjust the direction and angle of your solar panels for optimal energy production
+          {t("orientationDesc")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Azimuth Control */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label className="flex items-center gap-2">
               <Compass className="h-4 w-4" />
-              Direction (Azimuth)
+              {t("directionAzimuth")}
             </Label>
             <span className="text-sm font-medium">
               {azimuth}° ({getDirectionLabel(azimuth)})
@@ -78,12 +80,11 @@ export const PanelOrientationControls = ({
           </p>
         </div>
 
-        {/* Tilt Control */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
-              Tilt Angle
+              {t("tiltAngle")}
             </Label>
             <span className="text-sm font-medium">{tilt}°</span>
           </div>
@@ -100,13 +101,12 @@ export const PanelOrientationControls = ({
           </p>
         </div>
 
-        {/* Recommendations */}
         <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-          <p className="text-sm font-medium">💡 Mumbai Optimal Settings:</p>
+          <p className="text-sm font-medium">💡 {t("optimalSettings")}</p>
           <ul className="text-xs text-muted-foreground space-y-1">
-            <li>• Direction: 180° (South-facing)</li>
-            <li>• Tilt: 19° (matches latitude)</li>
-            <li>• Efficiency: ~100% at these settings</li>
+            <li>• {t("directionSouth")}</li>
+            <li>• {t("tiltLatitude")}</li>
+            <li>• {t("efficiencyOptimal")}</li>
           </ul>
         </div>
       </CardContent>

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Settings, Sun, Loader2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SolarPanelSetupProps {
   panelSize: number;
@@ -28,15 +29,14 @@ export const SolarPanelSetup = ({
   const [isOpen, setIsOpen] = useState(false);
   const [panelSize, setPanelSize] = useState(initialSize);
   const [saving, setSaving] = useState(false);
+  const { t } = useLanguage();
 
-  // Open dialog if no config exists
   useEffect(() => {
     if (!loading && !hasConfig) {
       setIsOpen(true);
     }
   }, [loading, hasConfig]);
 
-  // Sync local state with prop
   useEffect(() => {
     setPanelSize(initialSize);
   }, [initialSize]);
@@ -50,15 +50,19 @@ export const SolarPanelSetup = ({
     }
   };
 
-  const handleReconfigure = () => {
-    setIsOpen(true);
+  const getSystemType = (size: number) => {
+    if (size < 3) return t("systemTypeSmall");
+    if (size < 7) return t("systemTypeMedium");
+    if (size < 12) return t("systemTypeLarge");
+    if (size < 50) return t("systemTypeCommercial");
+    return t("systemTypeIndustrial");
   };
 
   return (
     <>
       {hasConfig && (
         <button
-          onClick={handleReconfigure}
+          onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 p-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-50"
           aria-label="Reconfigure solar panel size"
         >
@@ -71,17 +75,17 @@ export const SolarPanelSetup = ({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-2xl">
               <Sun className="h-6 w-6 text-secondary" />
-              Configure Your Solar System
+              {t("configureSystem")}
             </DialogTitle>
             <DialogDescription>
-              Enter your solar panel system capacity to get accurate production estimates and savings calculations.
+              {t("configureDesc")}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-6 py-4">
             <div className="space-y-4">
               <Label htmlFor="panel-size" className="text-base font-semibold">
-                System Capacity (kW)
+                {t("systemCapacityKw")}
               </Label>
               
               <div className="flex items-center gap-4">
@@ -106,23 +110,21 @@ export const SolarPanelSetup = ({
               </div>
 
               <p className="text-sm text-muted-foreground">
-                Typical residential systems range from 3-10 kW. Commercial systems can be up to 100 kW.
+                {t("typicalRange")}
               </p>
             </div>
 
             <div className="p-4 bg-muted/50 rounded-lg space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">System Type:</span>
-                <span className="font-medium">
-                  {panelSize < 3 ? "Small" : panelSize < 7 ? "Medium" : panelSize < 12 ? "Large" : panelSize < 50 ? "Commercial" : "Industrial"}
-                </span>
+                <span className="text-muted-foreground">{t("systemType")}</span>
+                <span className="font-medium">{getSystemType(panelSize)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Estimated Panels:</span>
-                <span className="font-medium">{Math.ceil(panelSize / 0.4)} panels</span>
+                <span className="text-muted-foreground">{t("estimatedPanels")}:</span>
+                <span className="font-medium">{Math.ceil(panelSize / 0.4)} {t("panels")}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Daily Production (avg):</span>
+                <span className="text-muted-foreground">{t("dailyProductionAvg")}</span>
                 <span className="font-medium">{(panelSize * 4).toFixed(1)} kWh</span>
               </div>
             </div>
@@ -137,10 +139,10 @@ export const SolarPanelSetup = ({
             {saving ? (
               <>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Saving...
+                {t("saving")}
               </>
             ) : (
-              "Save Configuration"
+              t("saveConfiguration")
             )}
           </Button>
         </DialogContent>

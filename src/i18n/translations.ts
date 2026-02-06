@@ -1,0 +1,348 @@
+export type Language = "en" | "hi" | "mr";
+
+export type TranslationKey =
+  | "appName"
+  | "heroSubtitle"
+  | "liveMonitoring"
+  | "logout"
+  | "loading"
+  | "systemCapacity"
+  | "estimatedPanels"
+  | "panels"
+  | "currentOutput"
+  | "todaysProduction"
+  | "systemEfficiency"
+  | "monthlyTotal"
+  | "realTimePower"
+  | "accumulatedEnergy"
+  | "panelPerformance"
+  | "totalEnergyMonth"
+  | "weatherConditions"
+  | "cloudCover"
+  | "windSpeed"
+  | "solarEfficiency"
+  | "clearSky"
+  | "partlyCloudy"
+  | "foggy"
+  | "rainy"
+  | "snowy"
+  | "stormy"
+  | "locationRequired"
+  | "enableLocation"
+  | "costSavings"
+  | "basedOnRates"
+  | "thisMonthSavings"
+  | "generated"
+  | "dailyAverage"
+  | "yearlyProjection"
+  | "howMuchSaving"
+  | "gridCost"
+  | "solarCost"
+  | "netSavings"
+  | "envImpact"
+  | "co2Offset"
+  | "smartAlerts"
+  | "noAlerts"
+  | "generateAlerts"
+  | "refreshAlerts"
+  | "production"
+  | "weather"
+  | "performance"
+  | "maintenance"
+  | "optimization"
+  | "panelOrientation"
+  | "orientationDesc"
+  | "directionAzimuth"
+  | "tiltAngle"
+  | "fromHorizontal"
+  | "optimalSettings"
+  | "directionSouth"
+  | "tiltLatitude"
+  | "efficiencyOptimal"
+  | "solarPanel"
+  | "directionIndicator"
+  | "energyProduction"
+  | "day"
+  | "week"
+  | "month"
+  | "configureSystem"
+  | "configureDesc"
+  | "systemCapacityKw"
+  | "systemTypeSmall"
+  | "systemTypeMedium"
+  | "systemTypeLarge"
+  | "systemTypeCommercial"
+  | "systemTypeIndustrial"
+  | "dailyProductionAvg"
+  | "saveConfiguration"
+  | "saving"
+  | "typicalRange"
+  | "systemType"
+  | "started"
+  | "optimal"
+  | "good"
+  | "fair"
+  | "poor";
+
+type Translations = Record<Language, Record<TranslationKey, string>>;
+
+export const translations: Translations = {
+  en: {
+    appName: "Solar Scope",
+    heroSubtitle: "Monitor your solar panel performance in real-time. Track energy production, weather conditions, and optimize your solar efficiency.",
+    liveMonitoring: "Live Monitoring Active",
+    logout: "Logout",
+    loading: "Loading...",
+    systemCapacity: "System Capacity",
+    estimatedPanels: "Estimated Panels",
+    panels: "panels",
+    currentOutput: "Current Output",
+    todaysProduction: "Today's Production",
+    systemEfficiency: "System Efficiency",
+    monthlyTotal: "Monthly Total",
+    realTimePower: "Real-time power generation",
+    accumulatedEnergy: "Accumulated energy today",
+    panelPerformance: "Panel performance rating",
+    totalEnergyMonth: "Total energy this month",
+    weatherConditions: "Weather Conditions",
+    cloudCover: "Cloud Cover",
+    windSpeed: "Wind Speed",
+    solarEfficiency: "Solar Efficiency",
+    clearSky: "Clear Sky",
+    partlyCloudy: "Partly Cloudy",
+    foggy: "Foggy",
+    rainy: "Rainy",
+    snowy: "Snowy",
+    stormy: "Stormy",
+    locationRequired: "Location access is required to show weather data",
+    enableLocation: "Enable Location",
+    costSavings: "Cost Savings Calculator",
+    basedOnRates: "Based on Mumbai electricity rates",
+    thisMonthSavings: "This Month's Savings",
+    generated: "generated",
+    dailyAverage: "Daily Average",
+    yearlyProjection: "Yearly Projection",
+    howMuchSaving: "How much you're saving:",
+    gridCost: "Grid electricity cost",
+    solarCost: "Your solar cost",
+    netSavings: "Net savings",
+    envImpact: "Environmental Impact",
+    co2Offset: "You've offset approximately",
+    smartAlerts: "Smart Alerts",
+    noAlerts: "No alerts at this time",
+    generateAlerts: "Generate alerts",
+    refreshAlerts: "Refresh alerts with latest weather data",
+    production: "Production",
+    weather: "Weather",
+    performance: "Performance",
+    maintenance: "Maintenance",
+    optimization: "Optimization",
+    panelOrientation: "Panel Orientation",
+    orientationDesc: "Adjust the direction and angle of your solar panels for optimal energy production",
+    directionAzimuth: "Direction (Azimuth)",
+    tiltAngle: "Tilt Angle",
+    fromHorizontal: "from horizontal",
+    optimalSettings: "Mumbai Optimal Settings:",
+    directionSouth: "Direction: 180° (South-facing)",
+    tiltLatitude: "Tilt: 19° (matches latitude)",
+    efficiencyOptimal: "Efficiency: ~100% at these settings",
+    solarPanel: "Solar Panel",
+    directionIndicator: "Direction Indicator",
+    energyProduction: "Energy Production (Weather-Based)",
+    day: "Day",
+    week: "Week",
+    month: "Month",
+    configureSystem: "Configure Your Solar System",
+    configureDesc: "Enter your solar panel system capacity to get accurate production estimates and savings calculations.",
+    systemCapacityKw: "System Capacity (kW)",
+    systemTypeSmall: "Small",
+    systemTypeMedium: "Medium",
+    systemTypeLarge: "Large",
+    systemTypeCommercial: "Commercial",
+    systemTypeIndustrial: "Industrial",
+    dailyProductionAvg: "Daily Production (avg):",
+    saveConfiguration: "Save Configuration",
+    saving: "Saving...",
+    typicalRange: "Typical residential systems range from 3-10 kW. Commercial systems can be up to 100 kW.",
+    systemType: "System Type:",
+    started: "Started:",
+    optimal: "Optimal",
+    good: "Good",
+    fair: "Fair",
+    poor: "Poor",
+  },
+  hi: {
+    appName: "सोलर स्कोप",
+    heroSubtitle: "अपने सोलर पैनल के प्रदर्शन की रीयल-टाइम निगरानी करें। ऊर्जा उत्पादन, मौसम की स्थिति ट्रैक करें और अपनी सोलर दक्षता बढ़ाएं।",
+    liveMonitoring: "लाइव मॉनिटरिंग सक्रिय",
+    logout: "लॉगआउट",
+    loading: "लोड हो रहा है...",
+    systemCapacity: "सिस्टम क्षमता",
+    estimatedPanels: "अनुमानित पैनल",
+    panels: "पैनल",
+    currentOutput: "वर्तमान आउटपुट",
+    todaysProduction: "आज का उत्पादन",
+    systemEfficiency: "सिस्टम दक्षता",
+    monthlyTotal: "मासिक कुल",
+    realTimePower: "रीयल-टाइम बिजली उत्पादन",
+    accumulatedEnergy: "आज की संचित ऊर्जा",
+    panelPerformance: "पैनल प्रदर्शन रेटिंग",
+    totalEnergyMonth: "इस महीने की कुल ऊर्जा",
+    weatherConditions: "मौसम की स्थिति",
+    cloudCover: "बादल आवरण",
+    windSpeed: "हवा की गति",
+    solarEfficiency: "सोलर दक्षता",
+    clearSky: "साफ आसमान",
+    partlyCloudy: "आंशिक बादल",
+    foggy: "कोहरा",
+    rainy: "बारिश",
+    snowy: "बर्फबारी",
+    stormy: "तूफानी",
+    locationRequired: "मौसम डेटा दिखाने के लिए स्थान अनुमति आवश्यक है",
+    enableLocation: "स्थान सक्षम करें",
+    costSavings: "लागत बचत कैलकुलेटर",
+    basedOnRates: "मुंबई बिजली दरों पर आधारित",
+    thisMonthSavings: "इस महीने की बचत",
+    generated: "उत्पादित",
+    dailyAverage: "दैनिक औसत",
+    yearlyProjection: "वार्षिक अनुमान",
+    howMuchSaving: "आप कितना बचा रहे हैं:",
+    gridCost: "ग्रिड बिजली लागत",
+    solarCost: "आपकी सोलर लागत",
+    netSavings: "शुद्ध बचत",
+    envImpact: "पर्यावरणीय प्रभाव",
+    co2Offset: "आपने लगभग ऑफसेट किया",
+    smartAlerts: "स्मार्ट अलर्ट",
+    noAlerts: "इस समय कोई अलर्ट नहीं",
+    generateAlerts: "अलर्ट जनरेट करें",
+    refreshAlerts: "नवीनतम मौसम डेटा के साथ अलर्ट रिफ्रेश करें",
+    production: "उत्पादन",
+    weather: "मौसम",
+    performance: "प्रदर्शन",
+    maintenance: "रखरखाव",
+    optimization: "अनुकूलन",
+    panelOrientation: "पैनल अभिविन्यास",
+    orientationDesc: "इष्टतम ऊर्जा उत्पादन के लिए अपने सोलर पैनलों की दिशा और कोण समायोजित करें",
+    directionAzimuth: "दिशा (अज़ीमथ)",
+    tiltAngle: "झुकाव कोण",
+    fromHorizontal: "क्षैतिज से",
+    optimalSettings: "मुंबई इष्टतम सेटिंग्स:",
+    directionSouth: "दिशा: 180° (दक्षिण-मुखी)",
+    tiltLatitude: "झुकाव: 19° (अक्षांश अनुसार)",
+    efficiencyOptimal: "दक्षता: इन सेटिंग्स पर ~100%",
+    solarPanel: "सोलर पैनल",
+    directionIndicator: "दिशा संकेतक",
+    energyProduction: "ऊर्जा उत्पादन (मौसम-आधारित)",
+    day: "दिन",
+    week: "सप्ताह",
+    month: "महीना",
+    configureSystem: "अपना सोलर सिस्टम कॉन्फ़िगर करें",
+    configureDesc: "सटीक उत्पादन अनुमान और बचत गणना प्राप्त करने के लिए अपने सोलर पैनल सिस्टम की क्षमता दर्ज करें।",
+    systemCapacityKw: "सिस्टम क्षमता (kW)",
+    systemTypeSmall: "छोटा",
+    systemTypeMedium: "मध्यम",
+    systemTypeLarge: "बड़ा",
+    systemTypeCommercial: "व्यावसायिक",
+    systemTypeIndustrial: "औद्योगिक",
+    dailyProductionAvg: "दैनिक उत्पादन (औसत):",
+    saveConfiguration: "कॉन्फ़िगरेशन सहेजें",
+    saving: "सहेज रहा है...",
+    typicalRange: "सामान्य आवासीय सिस्टम 3-10 kW तक होते हैं। व्यावसायिक सिस्टम 100 kW तक हो सकते हैं।",
+    systemType: "सिस्टम प्रकार:",
+    started: "शुरू:",
+    optimal: "इष्टतम",
+    good: "अच्छा",
+    fair: "ठीक",
+    poor: "खराब",
+  },
+  mr: {
+    appName: "सोलर स्कोप",
+    heroSubtitle: "तुमच्या सोलर पॅनेलच्या कामगिरीवर रिअल-टाइम लक्ष ठेवा. ऊर्जा उत्पादन, हवामान स्थिती ट्रॅक करा आणि तुमची सोलर कार्यक्षमता वाढवा.",
+    liveMonitoring: "लाइव मॉनिटरिंग सक्रिय",
+    logout: "लॉगआउट",
+    loading: "लोड होत आहे...",
+    systemCapacity: "सिस्टम क्षमता",
+    estimatedPanels: "अंदाजित पॅनेल",
+    panels: "पॅनेल",
+    currentOutput: "सध्याचे आउटपुट",
+    todaysProduction: "आजचे उत्पादन",
+    systemEfficiency: "सिस्टम कार्यक्षमता",
+    monthlyTotal: "मासिक एकूण",
+    realTimePower: "रिअल-टाइम वीज उत्पादन",
+    accumulatedEnergy: "आजची एकूण ऊर्जा",
+    panelPerformance: "पॅनेल कामगिरी रेटिंग",
+    totalEnergyMonth: "या महिन्याची एकूण ऊर्जा",
+    weatherConditions: "हवामान स्थिती",
+    cloudCover: "ढगांचे आवरण",
+    windSpeed: "वाऱ्याचा वेग",
+    solarEfficiency: "सोलर कार्यक्षमता",
+    clearSky: "स्वच्छ आकाश",
+    partlyCloudy: "अंशतः ढगाळ",
+    foggy: "धुके",
+    rainy: "पाऊस",
+    snowy: "बर्फवृष्टी",
+    stormy: "वादळी",
+    locationRequired: "हवामान डेटा दाखवण्यासाठी स्थान परवानगी आवश्यक आहे",
+    enableLocation: "स्थान सक्षम करा",
+    costSavings: "खर्च बचत कॅल्क्युलेटर",
+    basedOnRates: "मुंबई वीज दरांवर आधारित",
+    thisMonthSavings: "या महिन्याची बचत",
+    generated: "उत्पादित",
+    dailyAverage: "दैनंदिन सरासरी",
+    yearlyProjection: "वार्षिक अंदाज",
+    howMuchSaving: "तुम्ही किती बचत करत आहात:",
+    gridCost: "ग्रिड वीज खर्च",
+    solarCost: "तुमचा सोलर खर्च",
+    netSavings: "निव्वळ बचत",
+    envImpact: "पर्यावरणीय प्रभाव",
+    co2Offset: "तुम्ही अंदाजे ऑफसेट केले",
+    smartAlerts: "स्मार्ट अलर्ट",
+    noAlerts: "सध्या कोणतेही अलर्ट नाहीत",
+    generateAlerts: "अलर्ट तयार करा",
+    refreshAlerts: "नवीनतम हवामान डेटासह अलर्ट रिफ्रेश करा",
+    production: "उत्पादन",
+    weather: "हवामान",
+    performance: "कामगिरी",
+    maintenance: "देखभाल",
+    optimization: "ऑप्टिमायझेशन",
+    panelOrientation: "पॅनेल अभिमुखता",
+    orientationDesc: "इष्टतम ऊर्जा उत्पादनासाठी तुमच्या सोलर पॅनेलची दिशा आणि कोन समायोजित करा",
+    directionAzimuth: "दिशा (अझिमथ)",
+    tiltAngle: "झुकाव कोन",
+    fromHorizontal: "क्षैतिज पासून",
+    optimalSettings: "मुंबई इष्टतम सेटिंग्ज:",
+    directionSouth: "दिशा: 180° (दक्षिणमुखी)",
+    tiltLatitude: "झुकाव: 19° (अक्षांशानुसार)",
+    efficiencyOptimal: "कार्यक्षमता: या सेटिंग्जवर ~100%",
+    solarPanel: "सोलर पॅनेल",
+    directionIndicator: "दिशा निर्देशक",
+    energyProduction: "ऊर्जा उत्पादन (हवामान-आधारित)",
+    day: "दिवस",
+    week: "आठवडा",
+    month: "महिना",
+    configureSystem: "तुमची सोलर सिस्टम कॉन्फिगर करा",
+    configureDesc: "अचूक उत्पादन अंदाज आणि बचत गणना मिळवण्यासाठी तुमच्या सोलर पॅनेल सिस्टमची क्षमता प्रविष्ट करा.",
+    systemCapacityKw: "सिस्टम क्षमता (kW)",
+    systemTypeSmall: "लहान",
+    systemTypeMedium: "मध्यम",
+    systemTypeLarge: "मोठे",
+    systemTypeCommercial: "व्यावसायिक",
+    systemTypeIndustrial: "औद्योगिक",
+    dailyProductionAvg: "दैनंदिन उत्पादन (सरासरी):",
+    saveConfiguration: "कॉन्फिगरेशन सेव्ह करा",
+    saving: "सेव्ह होत आहे...",
+    typicalRange: "सामान्य निवासी सिस्टम 3-10 kW असतात. व्यावसायिक सिस्टम 100 kW पर्यंत असू शकतात.",
+    systemType: "सिस्टम प्रकार:",
+    started: "सुरुवात:",
+    optimal: "इष्टतम",
+    good: "चांगले",
+    fair: "ठीक",
+    poor: "खराब",
+  },
+};
+
+export const languageLabels: Record<Language, string> = {
+  en: "English",
+  hi: "हिंदी",
+  mr: "मराठी",
+};

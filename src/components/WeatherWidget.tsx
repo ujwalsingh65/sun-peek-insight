@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface WeatherData {
   temperature: number;
@@ -17,27 +18,25 @@ export const WeatherWidget = () => {
   const [loading, setLoading] = useState(false);
   const [locationDenied, setLocationDenied] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const getWeatherDescription = (code: number) => {
-    if (code === 0) return "Clear Sky";
-    if (code <= 3) return "Partly Cloudy";
-    if (code <= 48) return "Foggy";
-    if (code <= 67) return "Rainy";
-    if (code <= 77) return "Snowy";
-    return "Stormy";
+    if (code === 0) return t("clearSky");
+    if (code <= 3) return t("partlyCloudy");
+    if (code <= 48) return t("foggy");
+    if (code <= 67) return t("rainy");
+    if (code <= 77) return t("snowy");
+    return t("stormy");
   };
 
   const fetchWeather = async (lat: number, lon: number) => {
     try {
       setLoading(true);
-      
-      // Fetch weather data from Open-Meteo
       const weatherResponse = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,cloud_cover,wind_speed_10m,weather_code&timezone=auto`
       );
       const weatherData = await weatherResponse.json();
 
-      // Fetch city name from reverse geocoding
       const geoResponse = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?latitude=${lat}&longitude=${lon}&count=1`
       );
@@ -101,7 +100,7 @@ export const WeatherWidget = () => {
     <Card className="border-border/50 bg-gradient-to-br from-card via-card to-card/80 backdrop-blur-sm shadow-card hover:shadow-card-hover transition-all duration-300 card-glow">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">
-          Weather Conditions
+          {t("weatherConditions")}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -115,10 +114,10 @@ export const WeatherWidget = () => {
           <div className="text-center py-4 space-y-3">
             <MapPin className="h-12 w-12 mx-auto text-muted-foreground" />
             <p className="text-sm text-muted-foreground">
-              Location access is required to show weather data
+              {t("locationRequired")}
             </p>
             <Button onClick={requestLocation} size="sm">
-              Enable Location
+              {t("enableLocation")}
             </Button>
           </div>
         )}
@@ -151,21 +150,21 @@ export const WeatherWidget = () => {
               <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                 <Cloud className="h-6 w-6 text-accent" />
                 <div>
-                  <p className="text-xs text-muted-foreground">Cloud Cover</p>
+                  <p className="text-xs text-muted-foreground">{t("cloudCover")}</p>
                   <p className="text-lg font-semibold">{weather.cloudCover}%</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                 <Wind className="h-6 w-6 text-accent" />
                 <div>
-                  <p className="text-xs text-muted-foreground">Wind Speed</p>
+                  <p className="text-xs text-muted-foreground">{t("windSpeed")}</p>
                   <p className="text-lg font-semibold">{weather.windSpeed} km/h</p>
                 </div>
               </div>
             </div>
 
             <div className="mt-4 p-3 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-border/50">
-              <p className="text-sm font-medium mb-1">Solar Efficiency</p>
+              <p className="text-sm font-medium mb-1">{t("solarEfficiency")}</p>
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                   <div
