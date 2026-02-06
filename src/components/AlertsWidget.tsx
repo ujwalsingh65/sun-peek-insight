@@ -6,6 +6,7 @@ import { AlertCircle, AlertTriangle, Info, RefreshCw, Zap } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Alert = {
   id: string;
@@ -19,11 +20,11 @@ type Alert = {
 
 export const AlertsWidget = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { t } = useLanguage();
 
   const { data: alerts, isLoading, refetch } = useQuery({
     queryKey: ["alerts"],
     queryFn: async () => {
-      // Check if alerts have already been generated today
       const lastGeneratedDate = localStorage.getItem("alerts_last_generated");
       const today = new Date().toDateString();
 
@@ -33,9 +34,6 @@ export const AlertsWidget = () => {
             await supabase.functions.invoke("generate-daily-alerts");
           if (generateResult?.success) {
             localStorage.setItem("alerts_last_generated", today);
-            console.log(
-              `Daily alerts generated: ${generateResult.alertsGenerated} alerts, estimated ${generateResult.estimatedDailyKwh} kWh`
-            );
           }
         } catch (error) {
           console.error("Error generating alerts:", error);
@@ -91,16 +89,17 @@ export const AlertsWidget = () => {
   };
 
   const getAlertTypeBadge = (type: string) => {
-    const labels: Record<string, string> = {
-      production: "Production",
-      weather: "Weather",
-      performance: "Performance",
-      maintenance: "Maintenance",
-      optimization: "Optimization",
+    const labelKeys: Record<string, string> = {
+      production: "production",
+      weather: "weather",
+      performance: "performance",
+      maintenance: "maintenance",
+      optimization: "optimization",
     };
+    const key = labelKeys[type];
     return (
       <span className="text-xs text-muted-foreground font-medium">
-        {labels[type] || type}
+        {key ? t(key as any) : type}
       </span>
     );
   };
@@ -113,7 +112,7 @@ export const AlertsWidget = () => {
             <div className="p-2 bg-gradient-accent rounded-lg shadow-glow">
               <Zap className="h-5 w-5 text-accent-foreground" />
             </div>
-            Smart Alerts
+            {t("smartAlerts")}
           </div>
           <Button
             variant="ghost"
@@ -121,7 +120,7 @@ export const AlertsWidget = () => {
             onClick={handleRefresh}
             disabled={isRefreshing}
             className="h-8 w-8"
-            title="Refresh alerts with latest weather data"
+            title={t("refreshAlerts")}
           >
             <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
           </Button>
@@ -169,7 +168,7 @@ export const AlertsWidget = () => {
         ) : (
           <div className="text-center py-8 text-muted-foreground">
             <Info className="h-8 w-8 mx-auto mb-2 opacity-50" />
-            <p className="text-sm">No alerts at this time</p>
+            <p className="text-sm">{t("noAlerts")}</p>
             <Button
               variant="ghost"
               size="sm"
@@ -177,7 +176,7 @@ export const AlertsWidget = () => {
               className="mt-2"
             >
               <RefreshCw className="h-3 w-3 mr-1" />
-              Generate alerts
+              {t("generateAlerts")}
             </Button>
           </div>
         )}

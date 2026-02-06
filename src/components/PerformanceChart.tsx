@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -14,6 +12,7 @@ import {
 } from "recharts";
 import { useSolarProduction } from "@/hooks/useSolarProduction";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PerformanceChartProps {
   systemCapacity: number;
@@ -24,6 +23,7 @@ interface PerformanceChartProps {
 export const PerformanceChart = ({ systemCapacity, azimuth = 180, tilt = 19 }: PerformanceChartProps) => {
   const [timeRange, setTimeRange] = useState<"day" | "week" | "month">("day");
   const { production, loading } = useSolarProduction(systemCapacity, azimuth, tilt);
+  const { t } = useLanguage();
 
   const data =
     timeRange === "day"
@@ -40,13 +40,13 @@ export const PerformanceChart = ({ systemCapacity, azimuth = 180, tilt = 19 }: P
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl font-semibold">
-            Energy Production (Weather-Based)
+            {t("energyProduction")}
           </CardTitle>
           <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as any)}>
             <TabsList>
-              <TabsTrigger value="day">Day</TabsTrigger>
-              <TabsTrigger value="week">Week</TabsTrigger>
-              <TabsTrigger value="month">Month</TabsTrigger>
+              <TabsTrigger value="day">{t("day")}</TabsTrigger>
+              <TabsTrigger value="week">{t("week")}</TabsTrigger>
+              <TabsTrigger value="month">{t("month")}</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
