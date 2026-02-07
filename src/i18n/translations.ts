@@ -82,13 +82,29 @@ export type TranslationKey =
   | "optimal"
   | "good"
   | "fair"
-  | "poor";
+  | "poor"
+  | "navDashboard"
+  | "navReports"
+  | "navSettings"
+  | "navHelp"
+  | "footerTagline"
+  | "quickLinks"
+  | "documentation"
+  | "privacyPolicy"
+  | "termsOfService"
+  | "contactUs"
+  | "allRightsReserved"
+  | "environmentalImpact"
+  | "co2SavedMonth"
+  | "treesEquivalent"
+  | "coalAvoided"
+  | "co2Saved";
 
 type Translations = Record<Language, Record<TranslationKey, string>>;
 
 export const translations: Translations = {
   en: {
-    appName: "Solar Scope",
+    appName: "Sun Peek Insight",
     heroSubtitle: "Monitor your solar panel performance in real-time. Track energy production, weather conditions, and optimize your solar efficiency.",
     liveMonitoring: "Live Monitoring Active",
     logout: "Logout",
@@ -148,7 +164,7 @@ export const translations: Translations = {
     efficiencyOptimal: "Efficiency: ~100% at these settings",
     solarPanel: "Solar Panel",
     directionIndicator: "Direction Indicator",
-    energyProduction: "Energy Production (Weather-Based)",
+    energyProduction: "Energy Production",
     day: "Day",
     week: "Week",
     month: "Month",
@@ -170,9 +186,25 @@ export const translations: Translations = {
     good: "Good",
     fair: "Fair",
     poor: "Poor",
+    navDashboard: "Dashboard",
+    navReports: "Reports",
+    navSettings: "Settings",
+    navHelp: "Help",
+    footerTagline: "Professional solar monitoring for smarter energy decisions. Track, optimize, and save with real-time insights.",
+    quickLinks: "Quick Links",
+    documentation: "Documentation",
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
+    contactUs: "Contact Us",
+    allRightsReserved: "All rights reserved.",
+    environmentalImpact: "Environmental Impact",
+    co2SavedMonth: "CO₂ saved this month",
+    treesEquivalent: "Trees equivalent",
+    coalAvoided: "Coal avoided",
+    co2Saved: "CO₂ Saved",
   },
   hi: {
-    appName: "सोलर स्कोप",
+    appName: "सन पीक इनसाइट",
     heroSubtitle: "अपने सोलर पैनल के प्रदर्शन की रीयल-टाइम निगरानी करें। ऊर्जा उत्पादन, मौसम की स्थिति ट्रैक करें और अपनी सोलर दक्षता बढ़ाएं।",
     liveMonitoring: "लाइव मॉनिटरिंग सक्रिय",
     logout: "लॉगआउट",
@@ -232,7 +264,7 @@ export const translations: Translations = {
     efficiencyOptimal: "दक्षता: इन सेटिंग्स पर ~100%",
     solarPanel: "सोलर पैनल",
     directionIndicator: "दिशा संकेतक",
-    energyProduction: "ऊर्जा उत्पादन (मौसम-आधारित)",
+    energyProduction: "ऊर्जा उत्पादन",
     day: "दिन",
     week: "सप्ताह",
     month: "महीना",
@@ -254,9 +286,25 @@ export const translations: Translations = {
     good: "अच्छा",
     fair: "ठीक",
     poor: "खराब",
+    navDashboard: "डैशबोर्ड",
+    navReports: "रिपोर्ट",
+    navSettings: "सेटिंग्स",
+    navHelp: "सहायता",
+    footerTagline: "स्मार्ट ऊर्जा निर्णयों के लिए पेशेवर सोलर मॉनिटरिंग। रीयल-टाइम इनसाइट के साथ ट्रैक करें, ऑप्टिमाइज़ करें और बचत करें।",
+    quickLinks: "त्वरित लिंक",
+    documentation: "प्रलेखन",
+    privacyPolicy: "गोपनीयता नीति",
+    termsOfService: "सेवा की शर्तें",
+    contactUs: "संपर्क करें",
+    allRightsReserved: "सर्वाधिकार सुरक्षित।",
+    environmentalImpact: "पर्यावरणीय प्रभाव",
+    co2SavedMonth: "इस महीने CO₂ बचत",
+    treesEquivalent: "पेड़ों के बराबर",
+    coalAvoided: "कोयला बचाया",
+    co2Saved: "CO₂ बचत",
   },
   mr: {
-    appName: "सोलर स्कोप",
+    appName: "सन पीक इनसाइट",
     heroSubtitle: "तुमच्या सोलर पॅनेलच्या कामगिरीवर रिअल-टाइम लक्ष ठेवा. ऊर्जा उत्पादन, हवामान स्थिती ट्रॅक करा आणि तुमची सोलर कार्यक्षमता वाढवा.",
     liveMonitoring: "लाइव मॉनिटरिंग सक्रिय",
     logout: "लॉगआउट",
@@ -316,7 +364,7 @@ export const translations: Translations = {
     efficiencyOptimal: "कार्यक्षमता: या सेटिंग्जवर ~100%",
     solarPanel: "सोलर पॅनेल",
     directionIndicator: "दिशा निर्देशक",
-    energyProduction: "ऊर्जा उत्पादन (हवामान-आधारित)",
+    energyProduction: "ऊर्जा उत्पादन",
     day: "दिवस",
     week: "आठवडा",
     month: "महिना",
@@ -338,6 +386,22 @@ export const translations: Translations = {
     good: "चांगले",
     fair: "ठीक",
     poor: "खराब",
+    navDashboard: "डॅशबोर्ड",
+    navReports: "अहवाल",
+    navSettings: "सेटिंग्ज",
+    navHelp: "मदत",
+    footerTagline: "स्मार्ट ऊर्जा निर्णयांसाठी व्यावसायिक सोलर मॉनिटरिंग. रिअल-टाइम इनसाइट्ससह ट्रॅक करा, ऑप्टिमाइझ करा आणि बचत करा.",
+    quickLinks: "द्रुत लिंक्स",
+    documentation: "दस्तऐवज",
+    privacyPolicy: "गोपनीयता धोरण",
+    termsOfService: "सेवा अटी",
+    contactUs: "संपर्क करा",
+    allRightsReserved: "सर्व हक्क राखीव.",
+    environmentalImpact: "पर्यावरणीय प्रभाव",
+    co2SavedMonth: "या महिन्यात CO₂ बचत",
+    treesEquivalent: "झाडांच्या बरोबरीचे",
+    coalAvoided: "कोळसा टाळला",
+    co2Saved: "CO₂ बचत",
   },
 };
 

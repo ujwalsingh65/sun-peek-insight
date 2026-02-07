@@ -9,15 +9,14 @@ import { AlertsWidget } from "@/components/AlertsWidget";
 import { SolarPanelSetup } from "@/components/SolarPanelSetup";
 import { SolarPanel2D } from "@/components/SolarPanel2D";
 import { PanelOrientationControls } from "@/components/PanelOrientationControls";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { LanguageSelector } from "@/components/LanguageSelector";
-import { Button } from "@/components/ui/button";
-import { Sun, LogOut } from "lucide-react";
+import { DashboardHeader } from "@/components/DashboardHeader";
+import { DashboardFooter } from "@/components/DashboardFooter";
+import { CO2Widget } from "@/components/CO2Widget";
+import { Sun } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getEfficiencyPercentage } from "@/utils/solarCalculations";
-import solarHero from "@/assets/solar-panels-hero.jpg";
 
 const Index = () => {
   const { 
@@ -29,6 +28,7 @@ const Index = () => {
     updateTilt 
   } = useSolarConfig();
   const [authLoading, setAuthLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -68,7 +68,7 @@ const Index = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <Sun className="h-12 w-12 text-primary animate-spin mx-auto mb-4" />
+          <Sun className="h-12 w-12 text-secondary animate-spin mx-auto mb-4" />
           <p className="text-muted-foreground">{t("loading")}</p>
         </div>
       </div>
@@ -76,7 +76,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <SolarPanelSetup 
         panelSize={config.panelSize} 
         hasConfig={hasConfig} 
@@ -84,107 +84,88 @@ const Index = () => {
         onSave={updatePanelSize}
       />
       
-      {/* Hero Section */}
-      <header className="relative overflow-hidden shadow-2xl">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${solarHero})`,
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/50" />
-          <div className="absolute inset-0 bg-gradient-glow" />
-        </div>
-        <div className="relative container mx-auto px-4 py-16 md:py-24 animate-fade-in">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-secondary/20 backdrop-blur-sm rounded-2xl border border-secondary/30 shadow-glow">
-                <Sun className="h-8 w-8 text-secondary drop-shadow-lg" />
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground drop-shadow-lg">
+      <DashboardHeader onLogout={handleLogout} activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Hero Banner */}
+      <section className="relative overflow-hidden border-b border-border/40">
+        <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
+        <div className="container mx-auto px-4 py-10 md:py-14">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
                 {t("appName")}
               </h1>
+              <p className="text-muted-foreground mt-2 max-w-xl text-sm md:text-base leading-relaxed">
+                {t("heroSubtitle")}
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <LanguageSelector />
-              <ThemeToggle />
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                size="sm"
-                className="bg-background/20 backdrop-blur-sm border-secondary/30 text-primary-foreground hover:bg-background/40"
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                {t("logout")}
-              </Button>
+            <div className="flex items-center gap-3 px-5 py-3 bg-accent/10 text-accent rounded-xl border border-accent/20 font-medium text-sm">
+              <div className="h-2.5 w-2.5 bg-accent rounded-full animate-pulse" />
+              {t("liveMonitoring")}
             </div>
-          </div>
-          <p className="text-xl md:text-2xl text-primary-foreground/95 max-w-3xl mb-10 leading-relaxed drop-shadow">
-            {t("heroSubtitle")}
-          </p>
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-secondary text-secondary-foreground rounded-2xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-glow shadow-xl cursor-pointer">
-            <span className="text-lg">{t("liveMonitoring")}</span>
-            <div className="h-3 w-3 bg-green-400 rounded-full animate-glow shadow-lg" />
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Dashboard Content */}
-      <main className="container mx-auto px-4 py-8 md:py-16 space-y-8">
-        <div className="relative z-0 p-6 bg-gradient-to-br from-card via-card to-card/50 backdrop-blur-sm rounded-2xl border border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300 flex items-center justify-between">
+      {/* Main Dashboard */}
+      <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+        {/* System Overview Bar */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-card rounded-xl border border-border/50 shadow-card">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-secondary rounded-xl shadow-glow">
-              <Sun className="h-6 w-6 text-secondary-foreground" />
+            <div className="p-2.5 bg-secondary/15 rounded-lg">
+              <Sun className="h-5 w-5 text-secondary" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground font-medium">{t("systemCapacity")}</p>
-              <p className="text-2xl font-bold bg-gradient-secondary bg-clip-text text-transparent">{config.panelSize} kW</p>
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{t("systemCapacity")}</p>
+              <p className="text-xl font-bold">{config.panelSize} kW</p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-muted-foreground font-medium">{t("estimatedPanels")}</p>
-            <p className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent">{Math.ceil(config.panelSize / 0.4)} {t("panels")}</p>
+          <div className="text-left sm:text-right">
+            <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{t("estimatedPanels")}</p>
+            <p className="text-xl font-bold">{Math.ceil(config.panelSize / 0.4)} {t("panels")}</p>
           </div>
         </div>
 
-        {/* 3D Panel Visualization and Controls */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="relative z-0 animate-slide-up">
-            <SolarPanel2D azimuth={config.azimuth} tilt={config.tilt} />
-          </div>
-          <div className="relative z-0 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            <PanelOrientationControls
-              azimuth={config.azimuth}
-              tilt={config.tilt}
-              onAzimuthChange={(value) => updateAzimuth(value)}
-              onTiltChange={(value) => updateTilt(value)}
-              efficiency={efficiency}
-            />
-          </div>
-        </div>
-
-        <div className="relative z-0 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        {/* Key Metrics */}
+        <section>
           <EnergyStats systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
-        </div>
+        </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-          <div className="relative z-0 lg:col-span-2">
+        {/* Panel Visualization + Controls */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <SolarPanel2D azimuth={config.azimuth} tilt={config.tilt} />
+          <PanelOrientationControls
+            azimuth={config.azimuth}
+            tilt={config.tilt}
+            onAzimuthChange={(value) => updateAzimuth(value)}
+            onTiltChange={(value) => updateTilt(value)}
+            efficiency={efficiency}
+          />
+        </section>
+
+        {/* Charts + Weather */}
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
             <PerformanceChart systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
           </div>
-          <div className="relative z-0">
-            <WeatherWidget />
-          </div>
-        </div>
+          <WeatherWidget />
+        </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-          <div className="relative z-0 lg:col-span-2">
+        {/* Savings + Alerts + Environmental */}
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-1">
             <CostSavingsCalculator systemCapacity={config.panelSize} />
           </div>
-          <div className="relative z-0">
+          <div className="lg:col-span-1">
             <AlertsWidget />
           </div>
-        </div>
+          <div className="lg:col-span-1">
+            <CO2Widget systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
+          </div>
+        </section>
       </main>
+
+      <DashboardFooter />
     </div>
   );
 };
