@@ -13,7 +13,7 @@ export const SolarPanel2D = ({ azimuth, tilt }: SolarPanel2DProps) => {
   const panelWidth = Math.cos(tiltRadians) * 60;
 
   return (
-    <div className="w-full h-[400px] bg-gradient-to-b from-sky-100 to-sky-50 dark:from-slate-900 dark:to-slate-800 rounded-lg overflow-hidden border border-border p-8">
+    <div className="w-full h-[400px] bg-muted/30 dark:bg-muted/20 rounded-xl overflow-hidden border border-border/50 p-8 shadow-card card-glow">
       <div className="flex h-full gap-8 items-center justify-center">
         {/* Compass View */}
         <div className="flex-1 flex flex-col items-center justify-center gap-4">
