@@ -4,52 +4,30 @@ import { supabase } from "@/integrations/supabase/client";
 import { EnergyStats } from "@/components/EnergyStats";
 import { PerformanceChart } from "@/components/PerformanceChart";
 import { WeatherWidget } from "@/components/WeatherWidget";
-import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
-import { AlertsWidget } from "@/components/AlertsWidget";
 import { SolarPanelSetup } from "@/components/SolarPanelSetup";
-import { SolarPanel2D } from "@/components/SolarPanel2D";
-import { PanelOrientationControls } from "@/components/PanelOrientationControls";
 import { DashboardHeader } from "@/components/DashboardHeader";
 import { DashboardFooter } from "@/components/DashboardFooter";
-import { CO2Widget } from "@/components/CO2Widget";
 import { Sun } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { getEfficiencyPercentage } from "@/utils/solarCalculations";
 
 const Index = () => {
-  const { 
-    config, 
-    loading: configLoading, 
-    hasConfig, 
-    updatePanelSize,
-    updateAzimuth,
-    updateTilt 
-  } = useSolarConfig();
+  const { config, loading: configLoading, hasConfig, updatePanelSize } = useSolarConfig();
   const [authLoading, setAuthLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("dashboard");
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
 
-  const efficiency = getEfficiencyPercentage(config.azimuth, config.tilt);
-
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
-        navigate("/auth");
-      } else {
-        setAuthLoading(false);
-      }
+      if (!session) navigate("/auth");
+      else setAuthLoading(false);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session) {
-        navigate("/auth");
-      } else {
-        setAuthLoading(false);
-      }
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      if (!session) navigate("/auth");
+      else setAuthLoading(false);
     });
 
     return () => subscription.unsubscribe();
@@ -57,10 +35,7 @@ const Index = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    toast({
-      title: "Logged out",
-      description: "You have been successfully logged out.",
-    });
+    toast({ title: "Logged out", description: "You have been successfully logged out." });
     navigate("/auth");
   };
 
@@ -77,14 +52,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <SolarPanelSetup 
-        panelSize={config.panelSize} 
-        hasConfig={hasConfig} 
+      <SolarPanelSetup
+        panelSize={config.panelSize}
+        hasConfig={hasConfig}
         loading={configLoading}
         onSave={updatePanelSize}
       />
-      
-      <DashboardHeader onLogout={handleLogout} activeTab={activeTab} onTabChange={setActiveTab} />
+
+      <DashboardHeader onLogout={handleLogout} />
 
       {/* Hero Banner */}
       <section className="relative overflow-hidden border-b border-border/40">
@@ -131,37 +106,12 @@ const Index = () => {
           <EnergyStats systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
         </section>
 
-        {/* Panel Visualization + Controls */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <SolarPanel2D azimuth={config.azimuth} tilt={config.tilt} />
-          <PanelOrientationControls
-            azimuth={config.azimuth}
-            tilt={config.tilt}
-            onAzimuthChange={(value) => updateAzimuth(value)}
-            onTiltChange={(value) => updateTilt(value)}
-            efficiency={efficiency}
-          />
-        </section>
-
         {/* Charts + Weather */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <PerformanceChart systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
           </div>
           <WeatherWidget />
-        </section>
-
-        {/* Savings + Alerts + Environmental */}
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-1">
-            <CostSavingsCalculator systemCapacity={config.panelSize} />
-          </div>
-          <div className="lg:col-span-1">
-            <AlertsWidget />
-          </div>
-          <div className="lg:col-span-1">
-            <CO2Widget systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
-          </div>
         </section>
       </main>
 
