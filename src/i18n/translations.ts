@@ -85,11 +85,10 @@ export type TranslationKey =
   | "poor"
   | "navDashboard"
   | "navReports"
-  | "navSettings"
+  | "navConfigure"
   | "navHelp"
   | "footerTagline"
   | "quickLinks"
-  | "documentation"
   | "privacyPolicy"
   | "termsOfService"
   | "contactUs"
@@ -98,7 +97,34 @@ export type TranslationKey =
   | "co2SavedMonth"
   | "treesEquivalent"
   | "coalAvoided"
-  | "co2Saved";
+  | "co2Saved"
+  | "language"
+  | "theme"
+  | "reportsSubtitle"
+  | "configureSubtitle"
+  | "userGuide"
+  | "userGuideSubtitle"
+  | "helpDashboardTitle"
+  | "helpDashboardDesc"
+  | "helpReportsTitle"
+  | "helpReportsDesc"
+  | "helpConfigureTitle"
+  | "helpConfigureDesc"
+  | "helpWeatherTitle"
+  | "helpWeatherDesc"
+  | "helpAlertsTitle"
+  | "helpAlertsDesc"
+  | "helpSavingsTitle"
+  | "helpSavingsDesc"
+  | "faqTitle"
+  | "faq1Q"
+  | "faq1A"
+  | "faq2Q"
+  | "faq2A"
+  | "faq3Q"
+  | "faq3A"
+  | "faq4Q"
+  | "faq4A";
 
 type Translations = Record<Language, Record<TranslationKey, string>>;
 
@@ -188,11 +214,10 @@ export const translations: Translations = {
     poor: "Poor",
     navDashboard: "Dashboard",
     navReports: "Reports",
-    navSettings: "Settings",
+    navConfigure: "Configure",
     navHelp: "Help",
     footerTagline: "Professional solar monitoring for smarter energy decisions. Track, optimize, and save with real-time insights.",
     quickLinks: "Quick Links",
-    documentation: "Documentation",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     contactUs: "Contact Us",
@@ -202,6 +227,33 @@ export const translations: Translations = {
     treesEquivalent: "Trees equivalent",
     coalAvoided: "Coal avoided",
     co2Saved: "CO₂ Saved",
+    language: "Language",
+    theme: "Theme",
+    reportsSubtitle: "View smart alerts, environmental impact, and cost savings analysis.",
+    configureSubtitle: "Set up your solar panel system, orientation, and configuration.",
+    userGuide: "User Guide",
+    userGuideSubtitle: "Learn how to use Sun Peek Insight to monitor and optimize your solar system.",
+    helpDashboardTitle: "Dashboard",
+    helpDashboardDesc: "The Dashboard shows real-time energy stats, performance charts, and weather data. It gives you an overview of your system's current output and monthly totals.",
+    helpReportsTitle: "Reports",
+    helpReportsDesc: "Reports contain smart alerts about your system, environmental impact metrics (CO₂ saved, trees equivalent), and a detailed cost savings calculator.",
+    helpConfigureTitle: "Configure",
+    helpConfigureDesc: "Configure your solar system capacity, panel orientation (azimuth and tilt angle), and view the 2D panel visualization to optimize your setup.",
+    helpWeatherTitle: "Weather Data",
+    helpWeatherDesc: "Weather data is fetched using your location. It shows temperature, cloud cover, wind speed, and estimated solar efficiency based on current conditions.",
+    helpAlertsTitle: "Smart Alerts",
+    helpAlertsDesc: "Smart alerts are generated daily based on weather conditions and your system performance. They include production tips, maintenance reminders, and optimization suggestions.",
+    helpSavingsTitle: "Cost Savings",
+    helpSavingsDesc: "The cost savings calculator estimates your monthly and yearly savings based on Mumbai electricity rates (₹8.50/kWh) and your system's energy production.",
+    faqTitle: "Frequently Asked Questions",
+    faq1Q: "How accurate are the energy production estimates?",
+    faq1A: "Estimates are based on your system capacity, panel orientation, and real-time weather data. Actual production may vary by 5-15% depending on panel condition and local shading.",
+    faq2Q: "How do I change my solar system size?",
+    faq2A: "Go to the Configure tab and use the system capacity slider to adjust your panel size. Changes are saved automatically to your account.",
+    faq3Q: "Why does the app need my location?",
+    faq3A: "Location is used to fetch local weather data, which helps calculate accurate solar efficiency estimates based on cloud cover, temperature, and sun position.",
+    faq4Q: "How are cost savings calculated?",
+    faq4A: "Savings are calculated by multiplying your estimated energy production (kWh) by the local electricity rate (₹8.50/kWh for Mumbai). This represents what you would have paid to the grid.",
   },
   hi: {
     appName: "सन पीक इनसाइट",
@@ -288,11 +340,10 @@ export const translations: Translations = {
     poor: "खराब",
     navDashboard: "डैशबोर्ड",
     navReports: "रिपोर्ट",
-    navSettings: "सेटिंग्स",
+    navConfigure: "कॉन्फ़िगर",
     navHelp: "सहायता",
     footerTagline: "स्मार्ट ऊर्जा निर्णयों के लिए पेशेवर सोलर मॉनिटरिंग। रीयल-टाइम इनसाइट के साथ ट्रैक करें, ऑप्टिमाइज़ करें और बचत करें।",
     quickLinks: "त्वरित लिंक",
-    documentation: "प्रलेखन",
     privacyPolicy: "गोपनीयता नीति",
     termsOfService: "सेवा की शर्तें",
     contactUs: "संपर्क करें",
@@ -302,6 +353,33 @@ export const translations: Translations = {
     treesEquivalent: "पेड़ों के बराबर",
     coalAvoided: "कोयला बचाया",
     co2Saved: "CO₂ बचत",
+    language: "भाषा",
+    theme: "थीम",
+    reportsSubtitle: "स्मार्ट अलर्ट, पर्यावरणीय प्रभाव और लागत बचत विश्लेषण देखें।",
+    configureSubtitle: "अपना सोलर पैनल सिस्टम, ओरिएंटेशन और कॉन्फ़िगरेशन सेट करें।",
+    userGuide: "उपयोगकर्ता गाइड",
+    userGuideSubtitle: "अपने सोलर सिस्टम की निगरानी और अनुकूलन के लिए Sun Peek Insight का उपयोग करना सीखें।",
+    helpDashboardTitle: "डैशबोर्ड",
+    helpDashboardDesc: "डैशबोर्ड रीयल-टाइम ऊर्जा आंकड़े, प्रदर्शन चार्ट और मौसम डेटा दिखाता है।",
+    helpReportsTitle: "रिपोर्ट",
+    helpReportsDesc: "रिपोर्ट में स्मार्ट अलर्ट, पर्यावरणीय प्रभाव मेट्रिक्स और विस्तृत लागत बचत कैलकुलेटर शामिल हैं।",
+    helpConfigureTitle: "कॉन्फ़िगर",
+    helpConfigureDesc: "अपने सोलर सिस्टम की क्षमता, पैनल ओरिएंटेशन और 2D पैनल विज़ुअलाइज़ेशन कॉन्फ़िगर करें।",
+    helpWeatherTitle: "मौसम डेटा",
+    helpWeatherDesc: "मौसम डेटा आपके स्थान का उपयोग करके प्राप्त किया जाता है। यह तापमान, बादल आवरण और सोलर दक्षता दिखाता है।",
+    helpAlertsTitle: "स्मार्ट अलर्ट",
+    helpAlertsDesc: "स्मार्ट अलर्ट मौसम और सिस्टम प्रदर्शन के आधार पर दैनिक उत्पन्न होते हैं।",
+    helpSavingsTitle: "लागत बचत",
+    helpSavingsDesc: "लागत बचत कैलकुलेटर मुंबई बिजली दरों के आधार पर आपकी मासिक और वार्षिक बचत का अनुमान लगाता है।",
+    faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
+    faq1Q: "ऊर्जा उत्पादन अनुमान कितने सटीक हैं?",
+    faq1A: "अनुमान आपकी सिस्टम क्षमता, पैनल ओरिएंटेशन और रीयल-टाइम मौसम डेटा पर आधारित हैं। वास्तविक उत्पादन 5-15% भिन्न हो सकता है।",
+    faq2Q: "मैं अपना सोलर सिस्टम साइज़ कैसे बदलूं?",
+    faq2A: "कॉन्फ़िगर टैब पर जाएं और सिस्टम क्षमता स्लाइडर का उपयोग करें।",
+    faq3Q: "ऐप को मेरे स्थान की आवश्यकता क्यों है?",
+    faq3A: "स्थान का उपयोग स्थानीय मौसम डेटा प्राप्त करने के लिए किया जाता है जो सटीक सोलर दक्षता अनुमान में मदद करता है।",
+    faq4Q: "लागत बचत की गणना कैसे होती है?",
+    faq4A: "बचत की गणना आपके अनुमानित ऊर्जा उत्पादन (kWh) को स्थानीय बिजली दर (₹8.50/kWh) से गुणा करके की जाती है।",
   },
   mr: {
     appName: "सन पीक इनसाइट",
@@ -388,11 +466,10 @@ export const translations: Translations = {
     poor: "खराब",
     navDashboard: "डॅशबोर्ड",
     navReports: "अहवाल",
-    navSettings: "सेटिंग्ज",
+    navConfigure: "कॉन्फिगर",
     navHelp: "मदत",
     footerTagline: "स्मार्ट ऊर्जा निर्णयांसाठी व्यावसायिक सोलर मॉनिटरिंग. रिअल-टाइम इनसाइट्ससह ट्रॅक करा, ऑप्टिमाइझ करा आणि बचत करा.",
     quickLinks: "द्रुत लिंक्स",
-    documentation: "दस्तऐवज",
     privacyPolicy: "गोपनीयता धोरण",
     termsOfService: "सेवा अटी",
     contactUs: "संपर्क करा",
@@ -402,6 +479,33 @@ export const translations: Translations = {
     treesEquivalent: "झाडांच्या बरोबरीचे",
     coalAvoided: "कोळसा टाळला",
     co2Saved: "CO₂ बचत",
+    language: "भाषा",
+    theme: "थीम",
+    reportsSubtitle: "स्मार्ट अलर्ट, पर्यावरणीय प्रभाव आणि खर्च बचत विश्लेषण पहा.",
+    configureSubtitle: "तुमची सोलर पॅनेल सिस्टम, अभिमुखता आणि कॉन्फिगरेशन सेट करा.",
+    userGuide: "वापरकर्ता मार्गदर्शिका",
+    userGuideSubtitle: "तुमच्या सोलर सिस्टमचे निरीक्षण आणि ऑप्टिमायझेशन करण्यासाठी Sun Peek Insight कसे वापरावे ते शिका.",
+    helpDashboardTitle: "डॅशबोर्ड",
+    helpDashboardDesc: "डॅशबोर्ड रिअल-टाइम ऊर्जा आकडेवारी, कामगिरी चार्ट आणि हवामान डेटा दाखवतो.",
+    helpReportsTitle: "अहवाल",
+    helpReportsDesc: "अहवालांमध्ये स्मार्ट अलर्ट, पर्यावरणीय प्रभाव मेट्रिक्स आणि तपशीलवार खर्च बचत कॅल्क्युलेटर समाविष्ट आहे.",
+    helpConfigureTitle: "कॉन्फिगर",
+    helpConfigureDesc: "तुमच्या सोलर सिस्टमची क्षमता, पॅनेल अभिमुखता आणि 2D पॅनेल व्हिज्युअलायझेशन कॉन्फिगर करा.",
+    helpWeatherTitle: "हवामान डेटा",
+    helpWeatherDesc: "हवामान डेटा तुमच्या स्थानाचा वापर करून मिळवला जातो. तापमान, ढगांचे आवरण आणि सोलर कार्यक्षमता दाखवतो.",
+    helpAlertsTitle: "स्मार्ट अलर्ट",
+    helpAlertsDesc: "स्मार्ट अलर्ट हवामान आणि सिस्टम कामगिरीच्या आधारे दररोज तयार केले जातात.",
+    helpSavingsTitle: "खर्च बचत",
+    helpSavingsDesc: "खर्च बचत कॅल्क्युलेटर मुंबई वीज दरांवर आधारित तुमच्या मासिक आणि वार्षिक बचतीचा अंदाज लावतो.",
+    faqTitle: "वारंवार विचारले जाणारे प्रश्न",
+    faq1Q: "ऊर्जा उत्पादन अंदाज किती अचूक आहेत?",
+    faq1A: "अंदाज तुमच्या सिस्टम क्षमता, पॅनेल अभिमुखता आणि रिअल-टाइम हवामान डेटावर आधारित आहेत. प्रत्यक्ष उत्पादन 5-15% भिन्न असू शकते.",
+    faq2Q: "मी माझा सोलर सिस्टम साइज कसा बदलू?",
+    faq2A: "कॉन्फिगर टॅबवर जा आणि सिस्टम क्षमता स्लायडर वापरा.",
+    faq3Q: "ॲपला माझ्या स्थानाची गरज का आहे?",
+    faq3A: "स्थानाचा वापर स्थानिक हवामान डेटा मिळवण्यासाठी केला जातो जो अचूक सोलर कार्यक्षमता अंदाजात मदत करतो.",
+    faq4Q: "खर्च बचतीची गणना कशी होते?",
+    faq4A: "बचतीची गणना तुमच्या अंदाजित ऊर्जा उत्पादन (kWh) ला स्थानिक वीज दर (₹8.50/kWh) ने गुणाकार करून केली जाते.",
   },
 };
 

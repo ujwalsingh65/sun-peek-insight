@@ -1,5 +1,6 @@
 import { Sun } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
 export const DashboardFooter = () => {
   const { t } = useLanguage();
@@ -25,9 +26,8 @@ export const DashboardFooter = () => {
           <div className="space-y-3">
             <h4 className="text-sm font-semibold text-foreground">{t("quickLinks")}</h4>
             <div className="flex flex-col gap-2">
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("documentation")}</a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("privacyPolicy")}</a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("termsOfService")}</a>
+              <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("privacyPolicy")}</Link>
+              <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("termsOfService")}</Link>
             </div>
           </div>
 
@@ -35,8 +35,8 @@ export const DashboardFooter = () => {
           <div className="space-y-3">
             <h4 className="text-sm font-semibold text-foreground">{t("contactUs")}</h4>
             <div className="flex flex-col gap-2">
-              <a href="mailto:support@sunpeekinsight.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">support@sunpeekinsight.com</a>
-              <span className="text-sm text-muted-foreground">+91 800-SOLAR-01</span>
+              <a href="mailto:sunpeekinsight@gmail.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">sunpeekinsight@gmail.com</a>
+              <span className="text-sm text-muted-foreground">+91 9892619389</span>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@ export const DashboardFooter = () => {
             © {new Date().getFullYear()} Sun Peek Insight. {t("allRightsReserved")}
           </p>
           <p className="text-xs text-muted-foreground font-medium">
-            ⚡ Powered by Sun Peek Insight
+            ⚡ Powered by Tripurti
           </p>
         </div>
       </div>
