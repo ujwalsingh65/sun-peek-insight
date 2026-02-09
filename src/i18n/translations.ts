@@ -68,6 +68,7 @@ export type TranslationKey =
   | "configureSystem"
   | "configureDesc"
   | "systemCapacityKw"
+  | "systemTypeTiny"
   | "systemTypeSmall"
   | "systemTypeMedium"
   | "systemTypeLarge"
@@ -77,6 +78,7 @@ export type TranslationKey =
   | "saveConfiguration"
   | "saving"
   | "typicalRange"
+  | "typicalRangeWatts"
   | "systemType"
   | "started"
   | "optimal"
@@ -197,6 +199,7 @@ export const translations: Translations = {
     configureSystem: "Configure Your Solar System",
     configureDesc: "Enter your solar panel system capacity to get accurate production estimates and savings calculations.",
     systemCapacityKw: "System Capacity (kW)",
+    systemTypeTiny: "Micro System",
     systemTypeSmall: "Small",
     systemTypeMedium: "Medium",
     systemTypeLarge: "Large",
@@ -206,6 +209,7 @@ export const translations: Translations = {
     saveConfiguration: "Save Configuration",
     saving: "Saving...",
     typicalRange: "Typical residential systems range from 3-10 kW. Commercial systems can be up to 100 kW.",
+    typicalRangeWatts: "Range: 1 W – 100,000 W (1 W to 100 kW)",
     systemType: "System Type:",
     started: "Started:",
     optimal: "Optimal",
@@ -323,6 +327,7 @@ export const translations: Translations = {
     configureSystem: "अपना सोलर सिस्टम कॉन्फ़िगर करें",
     configureDesc: "सटीक उत्पादन अनुमान और बचत गणना प्राप्त करने के लिए अपने सोलर पैनल सिस्टम की क्षमता दर्ज करें।",
     systemCapacityKw: "सिस्टम क्षमता (kW)",
+    systemTypeTiny: "माइक्रो सिस्टम",
     systemTypeSmall: "छोटा",
     systemTypeMedium: "मध्यम",
     systemTypeLarge: "बड़ा",
@@ -332,6 +337,7 @@ export const translations: Translations = {
     saveConfiguration: "कॉन्फ़िगरेशन सहेजें",
     saving: "सहेज रहा है...",
     typicalRange: "सामान्य आवासीय सिस्टम 3-10 kW तक होते हैं। व्यावसायिक सिस्टम 100 kW तक हो सकते हैं।",
+    typicalRangeWatts: "रेंज: 1 W – 100,000 W (1 W से 100 kW)",
     systemType: "सिस्टम प्रकार:",
     started: "शुरू:",
     optimal: "इष्टतम",
@@ -449,6 +455,7 @@ export const translations: Translations = {
     configureSystem: "तुमची सोलर सिस्टम कॉन्फिगर करा",
     configureDesc: "अचूक उत्पादन अंदाज आणि बचत गणना मिळवण्यासाठी तुमच्या सोलर पॅनेल सिस्टमची क्षमता प्रविष्ट करा.",
     systemCapacityKw: "सिस्टम क्षमता (kW)",
+    systemTypeTiny: "मायक्रो सिस्टम",
     systemTypeSmall: "लहान",
     systemTypeMedium: "मध्यम",
     systemTypeLarge: "मोठे",
@@ -458,6 +465,7 @@ export const translations: Translations = {
     saveConfiguration: "कॉन्फिगरेशन सेव्ह करा",
     saving: "सेव्ह होत आहे...",
     typicalRange: "सामान्य निवासी सिस्टम 3-10 kW असतात. व्यावसायिक सिस्टम 100 kW पर्यंत असू शकतात.",
+    typicalRangeWatts: "श्रेणी: 1 W – 100,000 W (1 W ते 100 kW)",
     systemType: "सिस्टम प्रकार:",
     started: "सुरुवात:",
     optimal: "इष्टतम",
