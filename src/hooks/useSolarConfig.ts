@@ -71,11 +71,11 @@ export const useSolarConfig = () => {
       const configToSave = { ...config, ...newConfig };
 
       // Validate constraints
-      if (configToSave.panelSize < 1 || configToSave.panelSize > 100) {
+      if (configToSave.panelSize < 0.001 || configToSave.panelSize > 100) {
         toast({
           variant: "destructive",
           title: "Invalid panel size",
-          description: "Panel size must be between 1 and 100 kW.",
+          description: "Panel size must be between 1 W and 100 kW.",
         });
         return false;
       }
