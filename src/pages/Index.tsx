@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { EnergyStats } from "@/components/EnergyStats";
 import { PerformanceChart } from "@/components/PerformanceChart";
 import { WeatherWidget } from "@/components/WeatherWidget";
-import { SolarPanelSetup } from "@/components/SolarPanelSetup";
+
 import { DashboardHeader } from "@/components/DashboardHeader";
 import { DashboardFooter } from "@/components/DashboardFooter";
 import { Sun } from "lucide-react";
@@ -52,12 +52,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <SolarPanelSetup
-        panelSize={config.panelSize}
-        hasConfig={hasConfig}
-        loading={configLoading}
-        onSave={updatePanelSize}
-      />
 
       <DashboardHeader onLogout={handleLogout} />
 
