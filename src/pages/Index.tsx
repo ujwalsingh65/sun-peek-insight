@@ -86,7 +86,7 @@ const Index = () => {
             </div>
             <div>
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{t("systemCapacity")}</p>
-              <p className="text-xl font-bold">{config.panelSize < 1 ? `${Math.round(config.panelSize * 1000)} W` : `${config.panelSize} kW`}</p>
+              <p className="text-xl font-bold">{config.panelSize} kW</p>
             </div>
           </div>
           <div className="text-left sm:text-right">
