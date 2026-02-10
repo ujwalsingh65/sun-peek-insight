@@ -30,8 +30,11 @@ export const AlertsWidget = () => {
 
       if (lastGeneratedDate !== today) {
         try {
+          const { data: { user } } = await supabase.auth.getUser();
           const { data: generateResult } =
-            await supabase.functions.invoke("generate-daily-alerts");
+            await supabase.functions.invoke("generate-daily-alerts", {
+              body: { user_id: user?.id },
+            });
           if (generateResult?.success) {
             localStorage.setItem("alerts_last_generated", today);
           }
@@ -60,6 +63,14 @@ export const AlertsWidget = () => {
   const handleRefresh = async () => {
     setIsRefreshing(true);
     localStorage.removeItem("alerts_last_generated");
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.functions.invoke("generate-daily-alerts", {
+        body: { user_id: user?.id },
+      });
+    } catch (error) {
+      console.error("Error refreshing alerts:", error);
+    }
     await refetch();
     setIsRefreshing(false);
   };
