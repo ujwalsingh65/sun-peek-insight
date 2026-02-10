@@ -36,7 +36,6 @@ export const DashboardFooter = () => {
             <h4 className="text-sm font-semibold text-foreground">{t("contactUs")}</h4>
             <div className="flex flex-col gap-2">
               <a href="mailto:sunpeekinsight@gmail.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">sunpeekinsight@gmail.com</a>
-              <span className="text-sm text-muted-foreground">+91 9892619389</span>
             </div>
           </div>
         </div>

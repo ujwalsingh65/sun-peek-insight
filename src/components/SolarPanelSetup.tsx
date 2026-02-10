@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -33,6 +34,7 @@ export const SolarPanelSetup = ({
   const [panelSize, setPanelSize] = useState(initialSize);
   const [saving, setSaving] = useState(false);
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && !hasConfig && !inline) {
@@ -48,7 +50,10 @@ export const SolarPanelSetup = ({
     setSaving(true);
     const success = await onSave(panelSize);
     setSaving(false);
-    if (success) setIsOpen(false);
+    if (success) {
+      setIsOpen(false);
+      if (inline) navigate("/");
+    }
   };
 
   const getSystemType = (size: number) => {
