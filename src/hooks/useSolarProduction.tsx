@@ -217,27 +217,48 @@ export const useSolarProduction = (
       });
     } catch (error) {
       console.error("Error calculating solar production:", error);
-      // Fallback to default values
+      // Fallback to estimated values scaled by system capacity
+      const scaleFactor = systemCapacity / 5; // base values assume 5kW
+      const orientationEff = calculatePanelEfficiency(azimuth, tilt);
+      const adjustedScale = scaleFactor * orientationEff;
+
+      const fallbackHourly: { time: string; energy: number }[] = [];
+      let fallbackDayTotal = 0;
+      for (let h = 6; h <= 20; h++) {
+        const basePeakOutput = systemCapacity * 0.7; // 70% average efficiency
+        let intensity = 0;
+        if (h >= 11 && h <= 14) intensity = 1.0;
+        else if (h >= 9 && h <= 16) intensity = 0.75;
+        else if (h >= 7 && h <= 18) intensity = 0.45;
+        else intensity = 0.15;
+        const energy = parseFloat((basePeakOutput * intensity * orientationEff).toFixed(2));
+        fallbackDayTotal += energy;
+        fallbackHourly.push({
+          time: `${h % 12 || 12}${h < 12 ? "AM" : "PM"}`,
+          energy,
+        });
+      }
+
       setProduction({
-        currentOutput: 3.2,
-        todayTotal: 24.5,
-        monthlyTotal: 742,
+        currentOutput: parseFloat((systemCapacity * 0.65 * orientationEff).toFixed(2)),
+        todayTotal: parseFloat(fallbackDayTotal.toFixed(1)),
+        monthlyTotal: parseFloat((fallbackDayTotal * 30 * 0.85).toFixed(1)),
         efficiency: 75,
-        hourlyData: [],
+        hourlyData: fallbackHourly,
         weeklyData: [
-          { day: "Mon", energy: 28 },
-          { day: "Tue", energy: 32 },
-          { day: "Wed", energy: 26 },
-          { day: "Thu", energy: 35 },
-          { day: "Fri", energy: 30 },
-          { day: "Sat", energy: 33 },
-          { day: "Sun", energy: 29 },
+          { day: "Mon", energy: parseFloat((fallbackDayTotal * 0.95).toFixed(1)) },
+          { day: "Tue", energy: parseFloat((fallbackDayTotal * 1.05).toFixed(1)) },
+          { day: "Wed", energy: parseFloat((fallbackDayTotal * 0.90).toFixed(1)) },
+          { day: "Thu", energy: parseFloat((fallbackDayTotal * 1.10).toFixed(1)) },
+          { day: "Fri", energy: parseFloat((fallbackDayTotal * 1.00).toFixed(1)) },
+          { day: "Sat", energy: parseFloat((fallbackDayTotal * 1.08).toFixed(1)) },
+          { day: "Sun", energy: parseFloat((fallbackDayTotal * 0.92).toFixed(1)) },
         ],
         monthlyWeekData: [
-          { week: "Week 1", energy: 185 },
-          { week: "Week 2", energy: 210 },
-          { week: "Week 3", energy: 195 },
-          { week: "Week 4", energy: 220 },
+          { week: "Week 1", energy: parseFloat((fallbackDayTotal * 6.5).toFixed(1)) },
+          { week: "Week 2", energy: parseFloat((fallbackDayTotal * 7.2).toFixed(1)) },
+          { week: "Week 3", energy: parseFloat((fallbackDayTotal * 6.8).toFixed(1)) },
+          { week: "Week 4", energy: parseFloat((fallbackDayTotal * 7.5).toFixed(1)) },
         ],
       });
     } finally {
