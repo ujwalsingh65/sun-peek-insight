@@ -90,15 +90,37 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // Get user's panel config (use first config or defaults)
-    const { data: configs } = await supabase
-      .from('solar_panel_configs')
-      .select('panel_size, azimuth, tilt')
-      .limit(1);
+    // Get user_id from request body if provided
+    let userId: string | null = null;
+    try {
+      const body = await req.json();
+      userId = body?.user_id ?? null;
+    } catch {
+      // No body provided
+    }
 
-    const config: PanelConfig = configs && configs.length > 0
-      ? configs[0]
-      : { panel_size: 5, azimuth: 180, tilt: 19 };
+    // Get user's panel config filtered by user_id, or fall back to defaults
+    let config: PanelConfig = { panel_size: 5, azimuth: 180, tilt: 19 };
+    if (userId) {
+      const { data: configs } = await supabase
+        .from('solar_panel_configs')
+        .select('panel_size, azimuth, tilt')
+        .eq('user_id', userId)
+        .limit(1);
+
+      if (configs && configs.length > 0) {
+        config = configs[0];
+      }
+    } else {
+      const { data: configs } = await supabase
+        .from('solar_panel_configs')
+        .select('panel_size, azimuth, tilt')
+        .limit(1);
+
+      if (configs && configs.length > 0) {
+        config = configs[0];
+      }
+    }
 
     console.log(`Using panel config: ${config.panel_size}kW, azimuth ${config.azimuth}°, tilt ${config.tilt}°`);
 
