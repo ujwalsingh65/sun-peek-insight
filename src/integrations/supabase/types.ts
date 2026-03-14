@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      actual_production: {
+        Row: {
+          created_at: string
+          device_id: string | null
+          energy_produced: number
+          id: string
+          power_output: number
+          timestamp: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          device_id?: string | null
+          energy_produced: number
+          id?: string
+          power_output: number
+          timestamp?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string | null
+          energy_produced?: number
+          id?: string
+          power_output?: number
+          timestamp?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       alerts: {
         Row: {
           alert_type: string
@@ -89,6 +119,42 @@ export type Database = {
           id?: string
           power_output?: number
           timestamp?: string
+        }
+        Relationships: []
+      }
+      production_comparisons: {
+        Row: {
+          actual_total: number
+          comparison_date: string
+          created_at: string
+          details: Json | null
+          difference_percent: number
+          id: string
+          simulated_total: number
+          status: string
+          user_id: string
+        }
+        Insert: {
+          actual_total?: number
+          comparison_date?: string
+          created_at?: string
+          details?: Json | null
+          difference_percent?: number
+          id?: string
+          simulated_total?: number
+          status?: string
+          user_id: string
+        }
+        Update: {
+          actual_total?: number
+          comparison_date?: string
+          created_at?: string
+          details?: Json | null
+          difference_percent?: number
+          id?: string
+          simulated_total?: number
+          status?: string
+          user_id?: string
         }
         Relationships: []
       }
