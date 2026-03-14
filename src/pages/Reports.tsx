@@ -3,6 +3,8 @@ import { DashboardFooter } from "@/components/DashboardFooter";
 import { AlertsWidget } from "@/components/AlertsWidget";
 import { CO2Widget } from "@/components/CO2Widget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
+import { RealVsSimulatedChart } from "@/components/RealVsSimulatedChart";
+import { IoTConnectionGuide } from "@/components/IoTConnectionGuide";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
@@ -26,6 +28,13 @@ const Reports = () => {
       </section>
 
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+        {/* Real vs Simulated Comparison */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <RealVsSimulatedChart />
+          <IoTConnectionGuide />
+        </section>
+
+        {/* Existing Widgets */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <AlertsWidget />
           <CO2Widget systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
