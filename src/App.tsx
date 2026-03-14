@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Reports from "./pages/Reports";
 import Configure from "./pages/Configure";
+import IoTSettings from "./pages/IoTSettings";
 import Help from "./pages/Help";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
