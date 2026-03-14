@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sun, Menu, X, LayoutDashboard, BarChart3, Wrench, HelpCircle, LogOut, Globe, Moon } from "lucide-react";
+import { Sun, Menu, X, LayoutDashboard, BarChart3, Wrench, HelpCircle, LogOut, Globe, Moon, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LanguageSelector } from "@/components/LanguageSelector";
