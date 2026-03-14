@@ -28,6 +28,13 @@ const Reports = () => {
       </section>
 
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+        {/* Real vs Simulated Comparison */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <RealVsSimulatedChart />
+          <IoTConnectionGuide />
+        </section>
+
+        {/* Existing Widgets */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <AlertsWidget />
           <CO2Widget systemCapacity={config.panelSize} azimuth={config.azimuth} tilt={config.tilt} />
