@@ -3,6 +3,8 @@ import { DashboardFooter } from "@/components/DashboardFooter";
 import { AlertsWidget } from "@/components/AlertsWidget";
 import { CO2Widget } from "@/components/CO2Widget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
+import { RealVsSimulatedChart } from "@/components/RealVsSimulatedChart";
+import { IoTConnectionGuide } from "@/components/IoTConnectionGuide";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
