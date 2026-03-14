@@ -4,7 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, LayoutDashboard, BarChart3, Wrench, Sun, Zap, Leaf, IndianRupee } from "lucide-react";
+import { BookOpen, LayoutDashboard, BarChart3, Wrench, Sun, Zap, Leaf, IndianRupee, Wifi, MapPin } from "lucide-react";
 
 const Help = () => {
   const { t } = useLanguage();
@@ -13,36 +13,14 @@ const Help = () => {
   if (authLoading) return <AuthLoadingScreen />;
 
   const guides = [
-    {
-      icon: LayoutDashboard,
-      title: t("helpDashboardTitle"),
-      description: t("helpDashboardDesc"),
-    },
-    {
-      icon: BarChart3,
-      title: t("helpReportsTitle"),
-      description: t("helpReportsDesc"),
-    },
-    {
-      icon: Wrench,
-      title: t("helpConfigureTitle"),
-      description: t("helpConfigureDesc"),
-    },
-    {
-      icon: Sun,
-      title: t("helpWeatherTitle"),
-      description: t("helpWeatherDesc"),
-    },
-    {
-      icon: Zap,
-      title: t("helpAlertsTitle"),
-      description: t("helpAlertsDesc"),
-    },
-    {
-      icon: IndianRupee,
-      title: t("helpSavingsTitle"),
-      description: t("helpSavingsDesc"),
-    },
+    { icon: LayoutDashboard, title: t("helpDashboardTitle"), description: t("helpDashboardDesc") },
+    { icon: BarChart3, title: t("helpReportsTitle"), description: t("helpReportsDesc") },
+    { icon: Wrench, title: t("helpConfigureTitle"), description: t("helpConfigureDesc") },
+    { icon: Wifi, title: t("helpIoTTitle"), description: t("helpIoTDesc") },
+    { icon: MapPin, title: t("helpAutoOrientTitle"), description: t("helpAutoOrientDesc") },
+    { icon: Sun, title: t("helpWeatherTitle"), description: t("helpWeatherDesc") },
+    { icon: Zap, title: t("helpAlertsTitle"), description: t("helpAlertsDesc") },
+    { icon: IndianRupee, title: t("helpSavingsTitle"), description: t("helpSavingsDesc") },
   ];
 
   const faqs = [
@@ -50,6 +28,8 @@ const Help = () => {
     { q: t("faq2Q"), a: t("faq2A") },
     { q: t("faq3Q"), a: t("faq3A") },
     { q: t("faq4Q"), a: t("faq4A") },
+    { q: t("faq5Q"), a: t("faq5A") },
+    { q: t("faq6Q"), a: t("faq6A") },
   ];
 
   return (
@@ -69,8 +49,7 @@ const Help = () => {
       </section>
 
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        {/* Feature Guides */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {guides.map((guide, i) => (
             <Card key={i} className="border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300">
               <CardHeader className="pb-3">
@@ -88,7 +67,6 @@ const Help = () => {
           ))}
         </div>
 
-        {/* FAQ */}
         <Card className="border-border/50 shadow-card">
           <CardHeader>
             <CardTitle className="text-xl">{t("faqTitle")}</CardTitle>

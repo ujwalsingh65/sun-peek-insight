@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sun, Menu, X, LayoutDashboard, BarChart3, Wrench, HelpCircle, LogOut, Globe, Moon } from "lucide-react";
+import { Sun, Menu, X, LayoutDashboard, BarChart3, Wrench, HelpCircle, LogOut, Globe, Moon, Wifi } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LanguageSelector } from "@/components/LanguageSelector";
@@ -20,6 +20,7 @@ export const DashboardHeader = ({ onLogout }: DashboardHeaderProps) => {
     { id: "/", label: t("navDashboard"), icon: LayoutDashboard },
     { id: "/reports", label: t("navReports"), icon: BarChart3 },
     { id: "/configure", label: t("navConfigure"), icon: Wrench },
+    { id: "/iot-settings", label: t("navIoT"), icon: Wifi },
     { id: "/help", label: t("navHelp"), icon: HelpCircle },
   ];
 

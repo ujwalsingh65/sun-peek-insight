@@ -1,9 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Compass, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Compass, TrendingUp, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 interface PanelOrientationControlsProps {
   azimuth: number;
@@ -21,6 +24,8 @@ export const PanelOrientationControls = ({
   efficiency,
 }: PanelOrientationControlsProps) => {
   const { t } = useLanguage();
+  const { toast } = useToast();
+  const [detecting, setDetecting] = useState(false);
 
   const getDirectionLabel = (degrees: number) => {
     if (degrees >= 337.5 || degrees < 22.5) return "N";
@@ -40,6 +45,37 @@ export const PanelOrientationControls = ({
     return { label: t("poor"), color: "bg-red-500" };
   };
 
+  const handleAutoDetect = () => {
+    setDetecting(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        // Northern hemisphere → face south (180°), southern → face north (0°)
+        const optimalAzimuth = lat >= 0 ? 180 : 0;
+        // Optimal tilt ≈ latitude
+        const optimalTilt = Math.round(Math.abs(lat));
+
+        onAzimuthChange(optimalAzimuth);
+        onTiltChange(Math.min(optimalTilt, 90));
+
+        toast({
+          title: t("autoDetectOptimal"),
+          description: `Latitude: ${lat.toFixed(2)}° → Azimuth: ${optimalAzimuth}°, Tilt: ${Math.min(optimalTilt, 90)}°`,
+        });
+        setDetecting(false);
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        toast({
+          variant: "destructive",
+          title: "Location Error",
+          description: "Could not detect your location. Please enable GPS.",
+        });
+        setDetecting(false);
+      }
+    );
+  };
+
   const status = getEfficiencyStatus(efficiency);
 
   return (
@@ -57,6 +93,20 @@ export const PanelOrientationControls = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Auto-detect button */}
+        <Button
+          onClick={handleAutoDetect}
+          disabled={detecting}
+          variant="outline"
+          className="w-full gap-2"
+        >
+          <MapPin className="h-4 w-4" />
+          {detecting ? t("loading") : t("autoDetectOptimal")}
+        </Button>
+        <p className="text-xs text-muted-foreground text-center -mt-4">
+          {t("autoDetectDesc")}
+        </p>
+
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label className="flex items-center gap-2">

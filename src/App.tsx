@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Reports from "./pages/Reports";
 import Configure from "./pages/Configure";
+import IoTSettings from "./pages/IoTSettings";
 import Help from "./pages/Help";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/configure" element={<Configure />} />
+              <Route path="/iot-settings" element={<IoTSettings />} />
               <Route path="/help" element={<Help />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
