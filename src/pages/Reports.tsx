@@ -4,7 +4,7 @@ import { AlertsWidget } from "@/components/AlertsWidget";
 import { CO2Widget } from "@/components/CO2Widget";
 import { CostSavingsCalculator } from "@/components/CostSavingsCalculator";
 import { RealVsSimulatedChart } from "@/components/RealVsSimulatedChart";
-import { IoTConnectionGuide } from "@/components/IoTConnectionGuide";
+import { IoTDataFeed } from "@/components/IoTDataFeed";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
@@ -31,7 +31,7 @@ const Reports = () => {
         {/* Real vs Simulated Comparison */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <RealVsSimulatedChart />
-          <IoTConnectionGuide />
+          <IoTDataFeed />
         </section>
 
         {/* Existing Widgets */}
