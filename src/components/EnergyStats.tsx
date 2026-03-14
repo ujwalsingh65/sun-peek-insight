@@ -1,6 +1,7 @@
-import { Battery, Zap, TrendingUp, Sun, Leaf, Info } from "lucide-react";
+import { Battery, Zap, TrendingUp, Sun, Leaf, Info, Wifi } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSolarProduction } from "@/hooks/useSolarProduction";
+import { useActualProduction } from "@/hooks/useActualProduction";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -19,18 +20,23 @@ interface EnergyStatsProps {
 
 export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: EnergyStatsProps) => {
   const { production, loading } = useSolarProduction(systemCapacity, azimuth, tilt);
+  const { isConnected, latestReading, todayTotal: actualTotal, loading: iotLoading } = useActualProduction();
   const [openTooltip, setOpenTooltip] = useState<number | null>(null);
   const { t } = useLanguage();
 
   const co2Saved = parseFloat((production.todayTotal * 0.82).toFixed(1));
 
+  // Calculate difference between actual and simulated
+  const diffPercent = production.todayTotal > 0 && isConnected
+    ? (((actualTotal - production.todayTotal) / production.todayTotal) * 100).toFixed(1)
+    : null;
+
   const stats = [
     {
       title: t("currentOutput"),
       value: loading ? "..." : `${production.currentOutput} kW`,
+      actualValue: isConnected && latestReading ? `${latestReading.power_output} kW` : null,
       icon: Zap,
-      trend: "+12%",
-      trendUp: true,
       color: "text-secondary",
       bgColor: "bg-secondary/10",
       info: t("realTimePower"),
@@ -38,9 +44,8 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
     {
       title: t("todaysProduction"),
       value: loading ? "..." : `${production.todayTotal} kWh`,
+      actualValue: isConnected ? `${actualTotal} kWh` : null,
       icon: Sun,
-      trend: "+8%",
-      trendUp: true,
       color: "text-accent",
       bgColor: "bg-accent/10",
       info: t("accumulatedEnergy"),
@@ -48,22 +53,24 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
     {
       title: t("systemEfficiency"),
       value: loading ? "..." : `${production.efficiency}%`,
+      actualValue: diffPercent !== null ? `${Number(diffPercent) > 0 ? "+" : ""}${diffPercent}%` : null,
       icon: Battery,
-      trend: "+5%",
-      trendUp: true,
       color: "text-primary",
       bgColor: "bg-primary/10",
-      info: t("panelPerformance"),
+      info: isConnected ? "Showing difference between actual and simulated." : t("panelPerformance"),
     },
     {
-      title: t("co2Saved"),
-      value: loading ? "..." : `${co2Saved} kg`,
-      icon: Leaf,
-      trend: "+15%",
-      trendUp: true,
-      color: "text-accent",
-      bgColor: "bg-accent/10",
-      info: "CO₂ emissions avoided by using solar energy today.",
+      title: isConnected ? "IoT Status" : t("co2Saved"),
+      value: isConnected
+        ? (loading ? "..." : `${actualTotal} kWh`)
+        : (loading ? "..." : `${co2Saved} kg`),
+      actualValue: null,
+      icon: isConnected ? Wifi : Leaf,
+      color: isConnected ? "text-primary" : "text-accent",
+      bgColor: isConnected ? "bg-primary/10" : "bg-accent/10",
+      info: isConnected
+        ? "Total actual energy from your IoT device today."
+        : "CO₂ emissions avoided by using solar energy today.",
     },
   ];
 
@@ -100,13 +107,13 @@ export const EnergyStats = ({ systemCapacity, azimuth = 180, tilt = 19 }: Energy
               {loading ? (
                 <Skeleton className="h-7 w-20" />
               ) : (
-                <div className="flex items-end justify-between">
+                <div className="space-y-1">
                   <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-                  <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                    stat.trendUp ? "text-accent bg-accent/10" : "text-destructive bg-destructive/10"
-                  }`}>
-                    {stat.trendUp ? "↑" : "↓"} {stat.trend}
-                  </span>
+                  {stat.actualValue && (
+                    <p className="text-xs font-semibold text-primary">
+                      Actual: {stat.actualValue}
+                    </p>
+                  )}
                 </div>
               )}
             </CardContent>

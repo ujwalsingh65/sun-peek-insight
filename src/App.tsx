@@ -30,6 +30,7 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/configure" element={<Configure />} />
+              <Route path="/iot-settings" element={<IoTSettings />} />
               <Route path="/help" element={<Help />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />

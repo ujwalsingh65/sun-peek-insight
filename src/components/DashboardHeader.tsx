@@ -20,6 +20,7 @@ export const DashboardHeader = ({ onLogout }: DashboardHeaderProps) => {
     { id: "/", label: t("navDashboard"), icon: LayoutDashboard },
     { id: "/reports", label: t("navReports"), icon: BarChart3 },
     { id: "/configure", label: t("navConfigure"), icon: Wrench },
+    { id: "/iot-settings", label: t("navIoT"), icon: Wifi },
     { id: "/help", label: t("navHelp"), icon: HelpCircle },
   ];
 
