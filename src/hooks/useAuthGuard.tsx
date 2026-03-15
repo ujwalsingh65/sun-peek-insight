@@ -28,7 +28,7 @@ export const useAuthGuard = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast({ title: "Logged out", description: "You have been successfully logged out." });
-    navigate("/auth");
+    navigate("/welcome");
   };
 
   const AuthLoadingScreen = () => (
