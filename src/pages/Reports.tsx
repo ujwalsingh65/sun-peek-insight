@@ -8,6 +8,21 @@ import { IoTDataFeed } from "@/components/IoTDataFeed";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import { useActualProduction } from "@/hooks/useActualProduction";
+
+const IoTSection = () => {
+  const { isConnected, loading } = useActualProduction();
+
+  if (loading) return null;
+  if (!isConnected) return null;
+
+  return (
+    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <RealVsSimulatedChart />
+      <IoTDataFeed />
+    </section>
+  );
+};
 
 const Reports = () => {
   const { config } = useSolarConfig();

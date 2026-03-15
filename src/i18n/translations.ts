@@ -1,4 +1,4 @@
-export type Language = "en" | "hi" | "mr" | "ta" | "bn" | "kn";
+export type Language = "en" | "hi" | "mr" | "ta" | "bn" | "kn" | "te" | "gu" | "ml" | "pa" | "ur";
 
 export type TranslationKey =
   | "appName"
