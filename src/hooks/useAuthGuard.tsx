@@ -13,7 +13,7 @@ export const useAuthGuard = () => {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) navigate("/auth");
+      if (!session) navigate("/welcome");
       else setAuthLoading(false);
     });
 
