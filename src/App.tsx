@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/contexts/ThemeProvider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Landing from "./pages/Landing";
 import Reports from "./pages/Reports";
 import Configure from "./pages/Configure";
 import IoTSettings from "./pages/IoTSettings";
@@ -27,6 +28,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/welcome" element={<Landing />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/configure" element={<Configure />} />
