@@ -28,11 +28,8 @@ const Reports = () => {
       </section>
 
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        {/* Real vs Simulated Comparison */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <RealVsSimulatedChart />
-          <IoTDataFeed />
-        </section>
+        {/* Real vs Simulated Comparison — only when IoT device is connected */}
+        <IoTSection />
 
         {/* Existing Widgets */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
