@@ -18,7 +18,7 @@ export const useAuthGuard = () => {
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      if (!session) navigate("/auth");
+      if (!session) navigate("/welcome");
       else setAuthLoading(false);
     });
 
