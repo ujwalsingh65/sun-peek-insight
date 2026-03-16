@@ -13,12 +13,12 @@ export const useAuthGuard = () => {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) navigate("/welcome");
+      if (!session) navigate("/");
       else setAuthLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      if (!session) navigate("/welcome");
+      if (!session) navigate("/");
       else setAuthLoading(false);
     });
 
@@ -28,7 +28,7 @@ export const useAuthGuard = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast({ title: "Logged out", description: "You have been successfully logged out." });
-    navigate("/welcome");
+    navigate("/");
   };
 
   const AuthLoadingScreen = () => (
