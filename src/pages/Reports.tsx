@@ -30,7 +30,8 @@ const Reports = () => {
   const { config } = useSolarConfig();
   const { t } = useLanguage();
   const { authLoading, handleLogout, AuthLoadingScreen } = useAuthGuard();
-  const { hourlyData } = useSolarProduction(config.panelSize, config.azimuth, config.tilt);
+  const { production } = useSolarProduction(config.panelSize, config.azimuth, config.tilt);
+  const hourlyData = production.hourlyData.map((d) => ({ hour: d.time, production: d.energy }));
 
   const downloadPDF = () => {
     const doc = new jsPDF();
