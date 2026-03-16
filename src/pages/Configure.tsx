@@ -3,6 +3,7 @@ import { DashboardFooter } from "@/components/DashboardFooter";
 import { SolarPanel2D } from "@/components/SolarPanel2D";
 import { PanelOrientationControls } from "@/components/PanelOrientationControls";
 import { SolarPanelSetup } from "@/components/SolarPanelSetup";
+import { PanelSizeEstimator, BatteryStorageCalculator, SubsidyEstimator } from "@/components/SolarCalculators";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useSolarConfig } from "@/hooks/useSolarConfig";
 import { getEfficiencyPercentage } from "@/utils/solarCalculations";
@@ -28,25 +29,21 @@ const Configure = () => {
       </section>
 
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        {/* System Configuration */}
-        <SolarPanelSetup
-          panelSize={config.panelSize}
-          hasConfig={hasConfig}
-          loading={configLoading}
-          onSave={updatePanelSize}
-          inline
-        />
+        <SolarPanelSetup panelSize={config.panelSize} hasConfig={hasConfig} loading={configLoading} onSave={updatePanelSize} inline />
 
-        {/* Panel Visualization + Controls */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <SolarPanel2D azimuth={config.azimuth} tilt={config.tilt} />
-          <PanelOrientationControls
-            azimuth={config.azimuth}
-            tilt={config.tilt}
-            onAzimuthChange={(value) => updateAzimuth(value)}
-            onTiltChange={(value) => updateTilt(value)}
-            efficiency={efficiency}
-          />
+          <PanelOrientationControls azimuth={config.azimuth} tilt={config.tilt} onAzimuthChange={(value) => updateAzimuth(value)} onTiltChange={(value) => updateTilt(value)} efficiency={efficiency} />
+        </section>
+
+        {/* Solar Calculators */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-foreground">Planning Tools</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <PanelSizeEstimator />
+            <BatteryStorageCalculator />
+            <SubsidyEstimator />
+          </div>
         </section>
       </main>
 

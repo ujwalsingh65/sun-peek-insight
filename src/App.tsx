@@ -12,6 +12,8 @@ import Reports from "./pages/Reports";
 import Configure from "./pages/Configure";
 import IoTSettings from "./pages/IoTSettings";
 import Help from "./pages/Help";
+import Profile from "./pages/Profile";
+import ResetPassword from "./pages/ResetPassword";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import NotFound from "./pages/NotFound";
@@ -27,16 +29,18 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/welcome" element={<Landing />} />
+              <Route path="/" element={<Landing />} />
+              <Route path="/dashboard" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reports" element={<Reports />} />
               <Route path="/configure" element={<Configure />} />
               <Route path="/iot-settings" element={<IoTSettings />} />
               <Route path="/help" element={<Help />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/welcome" element={<Landing />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
