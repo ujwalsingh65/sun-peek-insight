@@ -20,6 +20,7 @@ export type TranslationKey =
   | "weatherConditions"
   | "cloudCover"
   | "windSpeed"
+  | "yourLocation"
   | "solarEfficiency"
   | "clearSky"
   | "partlyCloudy"
@@ -160,6 +161,7 @@ const en: Record<TranslationKey, string> = {
   weatherConditions: "Weather Conditions",
   cloudCover: "Cloud Cover",
   windSpeed: "Wind Speed",
+  yourLocation: "Your Location",
   solarEfficiency: "Solar Efficiency",
   clearSky: "Clear Sky",
   partlyCloudy: "Partly Cloudy",

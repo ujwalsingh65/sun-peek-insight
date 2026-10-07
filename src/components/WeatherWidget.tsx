@@ -37,17 +37,25 @@ export const WeatherWidget = () => {
       );
       const weatherData = await weatherResponse.json();
 
+      // Reverse-geocode lat/lon -> city name (OpenStreetMap; Open-Meteo's
+      // geocoding endpoint only supports forward search by place name).
       const geoResponse = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?latitude=${lat}&longitude=${lon}&count=1`
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=10&accept-language=en`
       );
       const geoData = await geoResponse.json();
+      const address = geoData.address || {};
 
       setWeather({
         temperature: Math.round(weatherData.current.temperature_2m),
         windSpeed: Math.round(weatherData.current.wind_speed_10m),
         cloudCover: weatherData.current.cloud_cover,
         weatherCode: weatherData.current.weather_code,
-        city: geoData.results?.[0]?.name || "Unknown Location",
+        city:
+          address.city ||
+          address.town ||
+          address.village ||
+          address.state ||
+          t("yourLocation"),
       });
     } catch (error) {
       toast({
