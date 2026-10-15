@@ -142,7 +142,7 @@ type Translations = Record<Language, Record<TranslationKey, string>>;
 
 // --- English ---
 const en: Record<TranslationKey, string> = {
-  appName: "Sun Peek Insight",
+  appName: "Solar Production Estimator",
   heroSubtitle: "Monitor your solar panel performance in real-time. Track energy production, weather conditions, and optimize your solar efficiency.",
   liveMonitoring: "Live Monitoring Active",
   logout: "Logout",
@@ -246,7 +246,7 @@ const en: Record<TranslationKey, string> = {
   reportsSubtitle: "View smart alerts, environmental impact, and cost savings analysis.",
   configureSubtitle: "Set up your virtual solar panel simulation, orientation, and configuration.",
   userGuide: "User Guide",
-  userGuideSubtitle: "Learn how to use Sun Peek Insight to monitor and optimize your solar system.",
+  userGuideSubtitle: "Learn how to use Solar Production Estimator to monitor and optimize your solar system.",
   helpDashboardTitle: "Dashboard",
   helpDashboardDesc: "The Dashboard shows real-time energy stats (simulated and actual IoT data if connected), performance charts, and weather data. When an IoT device is connected, cards show both simulated and actual values side by side.",
   helpReportsTitle: "Reports",
@@ -386,7 +386,7 @@ const hi: Record<TranslationKey, string> = {
   reportsSubtitle: "स्मार्ट अलर्ट, पर्यावरणीय प्रभाव और लागत बचत विश्लेषण देखें।",
   configureSubtitle: "अपना वर्चुअल सोलर पैनल सिमुलेशन सेट करें।",
   userGuide: "उपयोगकर्ता गाइड",
-  userGuideSubtitle: "Sun Peek Insight का उपयोग करना सीखें।",
+  userGuideSubtitle: "Solar Production Estimator का उपयोग करना सीखें।",
   helpDashboardTitle: "डैशबोर्ड",
   helpDashboardDesc: "डैशबोर्ड रीयल-टाइम ऊर्जा आंकड़े और IoT डिवाइस डेटा (जुड़ा होने पर) दिखाता है।",
   helpReportsTitle: "रिपोर्ट",
@@ -526,7 +526,7 @@ const mr: Record<TranslationKey, string> = {
   reportsSubtitle: "स्मार्ट अलर्ट आणि खर्च बचत विश्लेषण पहा.",
   configureSubtitle: "तुमचा वर्चुअल सोलर पॅनेल सिमुलेशन सेट करा.",
   userGuide: "वापरकर्ता मार्गदर्शिका",
-  userGuideSubtitle: "Sun Peek Insight कसे वापरावे ते शिका.",
+  userGuideSubtitle: "Solar Production Estimator कसे वापरावे ते शिका.",
   helpDashboardTitle: "डॅशबोर्ड",
   helpDashboardDesc: "डॅशबोर्ड रिअल-टाइम ऊर्जा आकडेवारी आणि IoT डिवाइस डेटा दाखवतो.",
   helpReportsTitle: "अहवाल",

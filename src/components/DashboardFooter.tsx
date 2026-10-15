@@ -15,7 +15,7 @@ export const DashboardFooter = () => {
               <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-gradient-secondary">
                 <Sun className="h-4 w-4 text-secondary-foreground" />
               </div>
-              <span className="font-bold" style={{ fontFamily: 'var(--font-serif)' }}>Sun Peek Insight</span>
+              <span className="font-bold" style={{ fontFamily: 'var(--font-serif)' }}>Solar Production Estimator</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               {t("footerTagline")}
@@ -42,7 +42,7 @@ export const DashboardFooter = () => {
 
         <div className="mt-10 pt-6 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Sun Peek Insight. {t("allRightsReserved")}
+            © {new Date().getFullYear()} Solar Production Estimator. {t("allRightsReserved")}
           </p>
           <p className="text-xs text-muted-foreground font-medium">
             ⚡ Powered by Tripurti
