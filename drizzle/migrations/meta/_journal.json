@@ -29,6 +29,13 @@
       "when": 1792085093690,
       "tag": "0003_remove_unrestricted_shared_reads",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792085102661,
+      "tag": "0004_preserve_shared_read_behavior",
+      "breakpoints": true
     }
   ]
 }
