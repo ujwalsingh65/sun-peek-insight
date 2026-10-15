@@ -58,8 +58,8 @@ export default function Landing() {
           </motion.div>
 
           <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-tight" variants={fadeUp} initial="hidden" animate="visible" custom={1}>
-            <span className="block">Harness the</span>
-            <motion.span className="block gradient-text" variants={fadeUp} initial="hidden" animate="visible" custom={2}>Power of the Sun</motion.span>
+            <span className="block">Solar Production</span>
+            <motion.span className="block gradient-text" variants={fadeUp} initial="hidden" animate="visible" custom={2}>Estimator</motion.span>
           </motion.h1>
 
           <motion.p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed" variants={fadeUp} initial="hidden" animate="visible" custom={3}>
@@ -114,7 +114,7 @@ export default function Landing() {
       <section className="py-24 px-4">
         <motion.div className="max-w-3xl mx-auto text-center space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.6 }}>
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Ready to Optimize Your Solar Energy?</h2>
-          <p className="text-muted-foreground text-lg">Join Sun Peek Insight and start monitoring your solar panels with precision.</p>
+          <p className="text-muted-foreground text-lg">Join Solar Production Estimator and start monitoring your solar panels with precision.</p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Button size="lg" className="text-lg px-10 py-6 rounded-xl shadow-lg" onClick={() => navigate("/auth")}>
               Get Started
@@ -128,7 +128,7 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <Sun className="h-5 w-5 text-secondary" />
-            <span className="font-semibold text-foreground">Sun Peek Insight</span>
+            <span className="font-semibold text-foreground">Solar Production Estimator</span>
           </div>
           <div className="flex gap-6">
             <button onClick={() => navigate("/privacy-policy")} className="hover:text-foreground transition-colors">Privacy Policy</button>

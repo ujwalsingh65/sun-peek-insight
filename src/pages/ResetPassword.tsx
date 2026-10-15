@@ -65,7 +65,7 @@ export default function ResetPassword() {
             <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-gradient-secondary shadow-glow">
               <Sun className="h-6 w-6 text-secondary-foreground" />
             </div>
-            <span className="text-xl font-bold" style={{ fontFamily: "var(--font-serif)" }}>Sun Peek Insight</span>
+            <span className="text-xl font-bold" style={{ fontFamily: "var(--font-serif)" }}>Solar Production Estimator</span>
           </div>
           <CardTitle className="text-2xl font-bold">Set New Password</CardTitle>
           <CardDescription>Enter your new password below</CardDescription>

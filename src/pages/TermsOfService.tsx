@@ -16,7 +16,7 @@ const TermsOfService = () => {
               <Sun className="h-5 w-5 text-secondary-foreground" />
             </div>
             <span className="text-lg font-bold tracking-tight" style={{ fontFamily: 'var(--font-serif)' }}>
-              Sun Peek Insight
+              Solar Production Estimator
             </span>
           </div>
         </div>
@@ -28,22 +28,22 @@ const TermsOfService = () => {
           <p><strong>Effective Date:</strong> February 8, 2026</p>
 
           <h2 className="text-foreground text-xl font-semibold">1. Acceptance of Terms</h2>
-          <p>By accessing and using Sun Peek Insight, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
+          <p>By accessing and using Solar Production Estimator, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
 
           <h2 className="text-foreground text-xl font-semibold">2. Description of Service</h2>
-          <p>Sun Peek Insight is a solar energy monitoring dashboard that provides real-time energy production estimates, weather-based performance analysis, cost savings calculations, and environmental impact tracking.</p>
+          <p>Solar Production Estimator is a solar energy monitoring dashboard that provides real-time energy production estimates, weather-based performance analysis, cost savings calculations, and environmental impact tracking.</p>
 
           <h2 className="text-foreground text-xl font-semibold">3. User Responsibilities</h2>
           <p>You are responsible for maintaining the confidentiality of your account credentials, providing accurate solar system configuration data, and using the service in compliance with applicable laws.</p>
 
           <h2 className="text-foreground text-xl font-semibold">4. Data Accuracy Disclaimer</h2>
-          <p>Energy production estimates are calculated based on mathematical models and real-time weather data. Actual production may vary depending on panel condition, shading, inverter efficiency, and other factors. Sun Peek Insight is for informational purposes only.</p>
+          <p>Energy production estimates are calculated based on mathematical models and real-time weather data. Actual production may vary depending on panel condition, shading, inverter efficiency, and other factors. Solar Production Estimator is for informational purposes only.</p>
 
           <h2 className="text-foreground text-xl font-semibold">5. Intellectual Property</h2>
-          <p>All content, design, and functionality of Sun Peek Insight are owned by Tripurti and are protected by intellectual property laws.</p>
+          <p>All content, design, and functionality of Solar Production Estimator are owned by Tripurti and are protected by intellectual property laws.</p>
 
           <h2 className="text-foreground text-xl font-semibold">6. Limitation of Liability</h2>
-          <p>Sun Peek Insight shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of our service, including but not limited to financial decisions made based on our estimates.</p>
+          <p>Solar Production Estimator shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of our service, including but not limited to financial decisions made based on our estimates.</p>
 
           <h2 className="text-foreground text-xl font-semibold">7. Modifications</h2>
           <p>We reserve the right to modify these terms at any time. Continued use of the service after changes constitutes acceptance of the new terms.</p>

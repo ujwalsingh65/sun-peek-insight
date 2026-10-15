@@ -39,7 +39,7 @@ export const DashboardHeader = ({ onLogout }: DashboardHeaderProps) => {
                 <Sun className="h-5 w-5 text-secondary-foreground" />
               </div>
               <span className="text-lg font-bold tracking-tight" style={{ fontFamily: 'var(--font-serif)' }}>
-                Sun Peek Insight
+                Solar Production Estimator
               </span>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setDrawerOpen(true)}>
